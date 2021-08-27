@@ -9,7 +9,6 @@ class Producto {
 
     calcularImp(){
         this.precio = this.precio * 1.21;
-        return this.precio
     }
 }
 
@@ -43,9 +42,8 @@ productos.push(new Producto(21, "Salsa liviana - Tomate y hortalizas", "salsas",
 //Inicializar una lista carrito vacía que va a recibir los productos seleccionados
 carrito = [];
 
-//Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón
-//"Agregar" para añadir productos al carrito
-function crearListaProductos(listaProductos, categoria, idcontenedor) {
+//Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón.
+function listarProductos(listaProductos, categoria, idcontenedor) {
     const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
     let contenedor = document.getElementById(idcontenedor);
     for (const producto of listaProdFiltrada){
@@ -63,7 +61,7 @@ function crearListaProductos(listaProductos, categoria, idcontenedor) {
 
 //Función para limpiar el listado desplegable que se arma cuando se hace click en el carrito. Si el
 //carrito no está vacío se eliminan las líneas de la lista y la línea del total.
-function eliminarItemCarrito(){
+function limpiarCart(){
     if (carrito != null){
         let comprasItems = document.getElementsByClassName("list-group-item compras");
         for(let i =  comprasItems.length -1; i >= 0; i--){
@@ -77,7 +75,7 @@ function eliminarItemCarrito(){
 //Función para generar los li que se muestran en el desplegable del carrito. Primero se carga
 //el local storage y luego se crea un li por cada objeto en el array asignándole una clase de CSS
 //Luego se carga al final una linea con el total que se fue acumulado en la iteración del for of. 
-function cargarItemCarrito(){
+function cargarCart(){
     carrito = JSON.parse(localStorage.getItem("carrito"));
     if (carrito != null){
         let contenedor = document.getElementById("contListado__items");
@@ -99,7 +97,7 @@ function cargarItemCarrito(){
 
 //Función para mostrar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
 //botón modificando la clase que tienen los productos y el total.
-function desplegarCarrito(){
+function showCart(){
     let botonCartItem = document.getElementById("carrito__contListado");
     let botonCartTotal = document.getElementById("contListado__total");
     let visibilidad = document.getElementsByClassName("oculto");
@@ -113,7 +111,7 @@ function desplegarCarrito(){
 }
 
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
-function agregarNuevoItem(producto) {
+function agregarNuevoItem (producto) {
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
@@ -149,7 +147,7 @@ function vaciarCarrito() {
 //Asignación de las funciones que limpian el carrito, cargan los productos desde el local storage y los
 //hacen visible o invisible al botón carrito.
 let botonCart = document.getElementById("botonCarrito");
-botonCart.onclick = () =>{eliminarItemCarrito(); cargarItemCarrito(); desplegarCarrito()};
+botonCart.onclick = () =>{limpiarCart(); cargarCart(); showCart()};
 
 //Asignación de la función para limpiar el carrito cuando se presiona el botón con el ícono de papelera
 let botonVaciar = document.getElementById("btnvaciarCarrito");
@@ -158,12 +156,12 @@ botonVaciar.onclick = () =>{vaciarCarrito()};
 
 //EJECUCION DEL PROGRAMA
 //Crear los cuatro grupos de productos en cada Bootstrap collapse filtrados por su categoría.
-crearlistaProductos(productos, "fideos", "listaFideos");
-crearlistaProductos(productos, "ravioles", "listaRavioles");
-crearlistaProductos(productos, "otras", "listaOtras");
-crearlistaProductos(productos, "salsas", "listaSalsas");
+listarProductos(productos, "fideos", "listaFideos");
+listarProductos(productos, "ravioles", "listaRavioles");
+listarProductos(productos, "otras", "listaOtras");
+listarProductos(productos, "salsas", "listaSalsas");
 
 //Carga inicial de los elementos el carrito.
-cargarItemCarrito();
+cargarCart();
 //Carga inicial del badge.
 crearBadge();
