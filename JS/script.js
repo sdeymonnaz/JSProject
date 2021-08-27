@@ -9,6 +9,7 @@ class Producto {
 
     calcularImp(){
         this.precio = this.precio * 1.21;
+        return this.precio
     }
 }
 
@@ -81,9 +82,9 @@ function cargarCart(){
         let contenedor = document.getElementById("contListado__items");
         let totalImp = 0;
         for (let elem of carrito){
-            totalImp = totalImp + elem.precio * 1.21;
+            totalImp = totalImp + elem.precio;
             let cartItem = document.createElement("li");
-            cartItem.innerText = elem.nombre + "  $" + (elem.precio*1.21).toFixed(2);
+            cartItem.innerText = elem.nombre + "  $" + (elem.precio).toFixed(2);
             cartItem.setAttribute("class", "list-group-item compras");
             contenedor.appendChild(cartItem);
         }
@@ -112,6 +113,8 @@ function showCart(){
 
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
+    let precioImp = producto.calcularImp();
+    producto.precio = precioImp;
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
