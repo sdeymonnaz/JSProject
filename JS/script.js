@@ -65,14 +65,12 @@ function listarProductos(listaProductos, categoria, idcontenedor) {
 //Función para limpiar el listado desplegable que se arma cuando se hace click en el carrito. Si el
 //carrito no está vacío se eliminan las líneas de la lista y la línea del total.
 function limpiarCart(){
-    if (carrito != null){
-        let comprasItems = document.getElementsByClassName("list-group-item compras");
-        for(let i =  comprasItems.length -1; i >= 0; i--){
-            comprasItems[i].remove();
-        }
-        let comprasTotal = document.getElementsByClassName("list-group-item total");
-        comprasTotal[0].remove();
+    let comprasItems = document.getElementsByClassName("list-group-item compras");
+    for(let i =  comprasItems.length -1; i >= 0; i--){
+        comprasItems[i].remove();
     }
+    let comprasTotal = document.getElementsByClassName("list-group-item total");
+    comprasTotal[0].remove();
 }
 
 //Función para generar los li que se muestran en el desplegable del carrito. Primero se carga
@@ -80,22 +78,21 @@ function limpiarCart(){
 //Luego se carga al final una linea con el total que se fue acumulado en la iteración del for of. 
 function cargarCart(){
     carrito = JSON.parse(localStorage.getItem("carrito"));
-    if (carrito != null){
-        let contenedor = document.getElementById("contListado__items");
-        let totalImp = 0;
-        for (let elem of carrito){
-            totalImp = totalImp + elem.precio;
-            let cartItem = document.createElement("li");
-            cartItem.innerText = elem.nombre + "  $" + (elem.precio).toFixed(2);
-            cartItem.setAttribute("class", "list-group-item compras");
-            contenedor.appendChild(cartItem);
-        }
-        let contenedorTotal = document.getElementById("contListado__total");
-        let cartTotal = document.createElement("li");
-        cartTotal.innerText = "Total $" + totalImp.toFixed(2);
-        cartTotal.setAttribute("class", "list-group-item total");
-        contenedorTotal.appendChild(cartTotal);
+    let contenedor = document.getElementById("contListado__items");
+    let totalImp = 0;
+    for (let elem of carrito){
+        totalImp = totalImp + elem.precio;
+        let cartItem = document.createElement("li");
+        cartItem.innerText = elem.nombre + "  $" + (elem.precio).toFixed(2);
+        cartItem.setAttribute("class", "list-group-item compras");
+        contenedor.appendChild(cartItem);
     }
+    let contenedorTotal = document.getElementById("contListado__total");
+    let cartTotal = document.createElement("li");
+    cartTotal.innerText = "Total $" + totalImp.toFixed(2);
+    cartTotal.setAttribute("class", "list-group-item total");
+    contenedorTotal.appendChild(cartTotal);
+
 }
 
 //Función para mostrar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
@@ -125,13 +122,11 @@ function agregarNuevoItem (producto) {
 
 //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
 function crearBadge(){
-    if (carrito != null) {
-        let cart = document.getElementById("cantCarrito");
-        let contador = document.createElement("badge");
-        contador.innerText = carrito.length;
-        contador.setAttribute("class", "badge bg-primary");
-        cart.appendChild(contador);
-    }
+    let cart = document.getElementById("cantCarrito");
+    let contador = document.createElement("badge");
+    contador.innerText = carrito.length;
+    contador.setAttribute("class", "badge bg-primary");
+    cart.appendChild(contador);
 }
 
 //Actualiza el valor del badge cuando se agregan nuevos productos al carrito.
