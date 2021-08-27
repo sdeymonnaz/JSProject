@@ -43,11 +43,13 @@ productos.push(new Producto(21, "Salsa liviana - Tomate y hortalizas", "salsas",
 //Inicializar una lista carrito vacía que va a recibir los productos seleccionados
 carrito = [];
 
-//Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón.
+//Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón
+//con la leyenda "Agregar" para añadir productos al carrito.
 function listarProductos(listaProductos, categoria, idcontenedor) {
     const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
     let contenedor = document.getElementById(idcontenedor);
     for (const producto of listaProdFiltrada){
+        producto.precio = producto.calcularImp();
         let itemLista = document.createElement("li");
         let botonAgregar = document.createElement("button");
         itemLista.innerText = producto.nombre;
@@ -113,11 +115,12 @@ function showCart(){
 
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
-    let precioImp = producto.calcularImp();
-    producto.precio = precioImp;
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
+    limpiarCart();
+    cargarCart();
+    showCart();
 }
 
 //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
@@ -154,7 +157,7 @@ botonCart.onclick = () =>{limpiarCart(); cargarCart(); showCart()};
 
 //Asignación de la función para limpiar el carrito cuando se presiona el botón con el ícono de papelera
 let botonVaciar = document.getElementById("btnvaciarCarrito");
-botonVaciar.onclick = () =>{vaciarCarrito()};
+botonVaciar.onclick = () =>{vaciarCarrito(); limpiarCart(); cargarCart(); showCart()};
 
 
 //EJECUCION DEL PROGRAMA
