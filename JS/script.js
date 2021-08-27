@@ -8,8 +8,7 @@ class Producto {
     }
 
     calcularImp(){
-        this.precio = this.precio * 1.21;
-        return this.precio
+        return this.precio * 1.21
     }
 }
 
