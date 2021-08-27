@@ -1,0 +1,1184 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: url("../images/intro-fondo.jpg");
+  background-size: cover; }
+  .intro .intro__centro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #fb383b;
+    clip-path: ellipse(180px 220px); }
+    .intro .intro__centro .centro__logo {
+      height: 170px;
+      width: 100%;
+      padding: 10px;
+      transition: 2s; }
+    .intro .intro__centro .centro__logo:hover {
+      transform: rotateY(180deg); }
+    .intro .intro__centro .centro__titulo {
+      color: whitesmoke;
+      font-family: "Catamaran", sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      text-shadow: 2px 2px black;
+      padding-top: 1px;
+      padding-left: 10px;
+      padding-right: 10px; }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  background: #202020;
+  padding: 30px; }
+  .header a {
+    text-decoration: none; }
+  .header .header__logo {
+    height: 60px;
+    padding: 10px; }
+  .header .header__nombre {
+    color: whitesmoke; }
+  .header .header__nombre:hover {
+    color: #fb383b; }
+  .header .header__nav {
+    width: 90%; }
+    .header .header__nav .nav__lista {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      padding-left: 0; }
+      .header .header__nav .nav__lista .lista__elem {
+        font-family: "Catamaran", sans-serif;
+        text-decoration: none;
+        color: whitesmoke; }
+      .header .header__nav .nav__lista .lista__elem:hover {
+        color: #fb383b; }
+
+/* VISTA PARA MOVIL 480px ********************************/
+@media only screen and (min-width: 480px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px; }
+    .header .nav__lista {
+      flex-direction: column;
+      justify-content: center; }
+      .header .nav__lista .lista__elem {
+        font-size: 1.5rem; } }
+
+/* VISTA PARA TABLET 768px ******************************/
+@media only screen and (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    justify-content: center;
+    height: 100px; }
+    .header .header__logo {
+      height: 90px; }
+    .header .nav__lista {
+      flex-direction: row;
+      justify-content: space-evenly; }
+      .header .nav__lista .lista__elem {
+        font-size: 1.3rem; } }
+
+/* VISTA PARA DESKTOP 1024px **************************/
+@media only screen and (min-width: 1024px) {
+  .header {
+    height: 100px; }
+    .header .nav__lista {
+      flex-direction: row;
+      justify-content: flex-end; }
+      .header .nav__lista .lista__elem {
+        font-size: 1.5rem;
+        padding: 20px; } }
+
+/* TITULOS DE PAGINA ***********************************************/
+.tituloPag {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background-color: #202020;
+  height: 300px; }
+  .tituloPag .tituloPag__titular, .tituloPag .tituloPag__titular--galeria {
+    font-family: "Catamaran", sans-serif;
+    font-weight: 800;
+    color: whitesmoke;
+    padding: 20px;
+    word-spacing: 5px; }
+  .tituloPag .tituloPag__titular--galeria {
+    padding: 10px; }
+
+.tituloPagAlt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+  height: 300px; }
+  .tituloPagAlt .tituloPagAlt__tituloAlt {
+    font-family: "Catamaran", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #fb383b;
+    word-spacing: 5px; }
+  .tituloPagAlt .tituloPagAlt__texto {
+    width: 50%;
+    color: whitesmoke;
+    font-size: 1.2rem;
+    text-align: center; }
+
+/* VISTA PARA MOVIL 480px ********************************/
+@media only screen and (min-width: 480px) {
+  .tituloPag__titular, .tituloPag .tituloPag__titular--galeria {
+    font-size: 1.5rem; }
+  .tituloPagAlt {
+    margin: 30px; }
+    .tituloPagAlt .tituloPagAlt__texto {
+      width: 75%; } }
+
+/* VISTA PARA TABLET 768px ******************************/
+@media only screen and (min-width: 768px) {
+  .tituloPag__titular, .tituloPag .tituloPag__titular--galeria {
+    font-size: 1.5rem; }
+  .tituloPagAlt {
+    margin: 30px; }
+    .tituloPagAlt .tituloPagAlt__tituloAlt {
+      font-size: 2.3rem; }
+    .tituloPagAlt .tituloPagAlt__texto {
+      width: 75%; } }
+
+/* VISTA PARA DESKTOP 1024px **************************/
+@media only screen and (min-width: 1024px) {
+  .tituloPag__titular, .tituloPag .tituloPag__titular--galeria {
+    font-size: 3rem; }
+  .tituloPagAlt {
+    margin: 30px; }
+    .tituloPagAlt .tituloPagAlt__tituloAlt {
+      font-size: 3rem; }
+    .tituloPagAlt .tituloPagAlt__texto {
+      width: 75%; } }
+
+.footer {
+  display: flex;
+  background: #202020;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100px; }
+  .footer .footer__listado {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
+    width: 100%;
+    height: 100%; }
+    .footer .footer__listado .listado__item {
+      font-size: 1.5rem;
+      padding: 2px; }
+      .footer .footer__listado .listado__item .fa {
+        color: whitesmoke;
+        padding-right: 20px;
+        text-decoration: none; }
+      .footer .footer__listado .listado__item .fa:hover {
+        color: #fb383b; }
+
+.carrito {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #202020;
+  padding: 30px; }
+  .carrito .carrito__titulo {
+    display: flex;
+    justify-content: flex-start;
+    width: 70%;
+    height: auto; }
+    .carrito .carrito__titulo .titulo__texto {
+      font-family: "Catamaran", sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: whitesmoke;
+      word-spacing: 5px; }
+  .carrito .carrito__contenedor {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+    height: auto; }
+  .carrito .btn-warning {
+    color: whitesmoke;
+    background-color: #fb383b;
+    border-color: #fb383b; }
+    .carrito .btn-warning .contenedor__logo {
+      width: 40px;
+      color: black; }
+  .carrito .btn-warning:hover {
+    color: #000;
+    background-color: #ffca2c;
+    border-color: #ffc720; }
+
+    .visible{
+      display: inline; }
+  
+    .oculto{
+      display: none; }
+  
+
+
+.banner {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: block;
+  /* VISTA PARA MOVIL 480px ********************************/
+  /* VISTA PARA TABLET 768px ******************************/
+  /* VISTA PARA DESKTOP 1024px **************************/ }
+  .banner #carouselExampleControls {
+    opacity: 0.7; }
+  .banner .banner__titulo {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    text-align: center; }
+    .banner .banner__titulo .titulo__texto {
+      font-family: "Catamaran", sans-serif;
+      font-weight: 800;
+      color: #fb383b;
+      word-spacing: 5px;
+      text-shadow: 2px 2px black; }
+  @media only screen and (min-width: 480px) {
+    .banner .titulo__texto {
+      font-size: 3rem; } }
+  @media only screen and (min-width: 768px) {
+    .banner .titulo__texto {
+      font-size: 4rem; } }
+  @media only screen and (min-width: 1024px) {
+    .banner .titulo__texto {
+      font-size: 5rem; } }
+
+.banner-contacto {
+  width: 100%;
+  height: 300px; }
+  .banner-contacto .banner-contacto__contenedor {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/banner.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .banner-contacto .banner-contacto__contenedor .contenedor__titulo {
+      font-size: 5rem;
+      font-family: "Catamaran", sans-serif;
+      font-weight: 800;
+      color: #fb383b;
+      text-shadow: 2px 2px black;
+      padding: 10px; }
+
+.banner-quienes {
+  width: 100%;
+  height: 300px;
+  /* VISTA PARA MOVIL 480px ********************************/
+  /* VISTA PARA TABLET 768px ******************************/
+  /* VISTA PARA DESKTOP 1024px **************************/ }
+  .banner-quienes .banner-quienes__contenedor {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/banner.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .banner-quienes .banner-quienes__contenedor .contenedor__titulo {
+      font-size: 5rem;
+      font-family: "Catamaran", sans-serif;
+      font-weight: 800;
+      color: #fb383b;
+      text-shadow: 3px 3px black;
+      padding: 10px; }
+  @media only screen and (min-width: 480px) {
+    .banner-quienes .banner-quienes .banner-quienes__contenedor .contenedor__titulo {
+      font-size: 3.5rem; } }
+  @media only screen and (min-width: 768px) {
+    .banner-quienes .banner-quienes .banner-quienes__contenedor .contenedor__titulo {
+      font-size: 5rem; } }
+  @media only screen and (min-width: 1024px) {
+    .banner-quienes .banner-quienes .banner-quienes__contenedor .contenedor__titulo {
+      font-size: 6rem; } }
+
+.productos {
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* VISTA PARA MOVIL 480px ******************************/
+  /* VISTA PARA TABLET 768px *****************************/
+  /* VISTA PARA DESKTOP 1024px **************************/ }
+  .productos .productos__grilla {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center; }
+    .productos .productos__grilla .grilla__fideos {
+      display: flex;
+      flex-direction: row;
+      width: 100%; }
+      .productos .productos__grilla .grilla__fideos .fideos__foto {
+        background-image: url(../images/pedidos_fideos.jpg);
+        background-repeat: no-repeat; }
+      .productos .productos__grilla .grilla__fideos .fideos__opciones {
+        height: 600px; }
+        .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto {
+          background-color: #fb383b;
+          padding: 20px; }
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .texto__titulo {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: whitesmoke;
+            text-shadow: 2px 2px black; }
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .texto__parrafo {
+            color: whitesmoke;
+            padding: 5px; }
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .list-group {
+            background-color: RGBA(195, 194, 193, 0.7);
+            font-family: "Catamaran", sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            height: auto;
+            padding: 5px;
+            border-radius: .25rem; }
+
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .btn {
+            float: right;
+            font-size: 1.3rem;
+            color: whitesmoke;
+            background-color: #202020;
+            border-color: #202020; }
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .btn:focus {
+            box-shadow: 0 0 0 0.25rem #ffca2c; }
+          .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .btn:hover {
+            color: black;
+            background-color: #ffca2c;
+            border-color: #ffca2c; }
+        .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__fotobajo {
+          width: 100%;
+          height: 300px;
+          background-image: url(../images/pedidos_fideos2.jpg);
+          background-repeat: no-repeat; }
+    .productos .productos__grilla .grilla__ravioles {
+      display: flex;
+      width: 100%; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto {
+        width: 100%;
+        height: 300px;
+        background-color: #202020;
+        padding: 20px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .texto__titulo {
+          font-size: 3.5rem;
+          font-weight: 600;
+          color: whitesmoke;
+          text-shadow: 2px 2px black; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .texto__parrafo {
+          color: whitesmoke;
+          padding: 5px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .list-group {
+          background-color: RGBA(195, 194, 193, 0.7);
+          font-family: "Catamaran", sans-serif;
+          font-size: 1rem;
+          width: 100%;
+          height: auto;
+          padding: 5px;
+          border-radius: .25rem; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .btn {
+          float: right;
+          font-size: 1.3rem;
+          color: whitesmoke;
+          background-color: #fb383b;
+          border-color: #fb383b; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .btn:focus {
+          box-shadow: 0 0 0 0.25rem #fb383b; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .btn:hover {
+          color: black;
+          background-color: #ffca2c;
+          border-color: #ffca2c; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__fotobajo {
+        background-image: url(../images/pedidos_ravioles.jpg);
+        background-repeat: no-repeat; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto {
+        background-color: #202020;
+        padding: 20px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .texto__titulo {
+          font-size: 3.5rem;
+          font-weight: 600;
+          color: whitesmoke;
+          text-shadow: 2px 2px black; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .texto__parrafo {
+          color: whitesmoke;
+          padding: 5px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .list-group {
+          background-color: RGBA(195, 194, 193, 0.7);
+          font-family: "Catamaran", sans-serif;
+          font-size: 1rem;
+          width: 100%;
+          height: auto;
+          padding: 5px;
+          border-radius: .25rem; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .btn {
+          float: right;
+          font-size: 1.2rem;
+          color: whitesmoke;
+          background-color: #fb383b;
+          border-color: #fb383b; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .btn:focus {
+          box-shadow: 0 0 0 0.25rem #fb383b; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .btn:hover {
+          color: black;
+          background-color: #ffca2c;
+          border-color: #ffca2c; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__foto2 {
+        width: 100%;
+        height: 400px;
+        background-image: url(../images/pedidos_otras.jpg);
+        background-repeat: no-repeat; }
+    .productos .productos__grilla .grilla__salsas {
+      display: flex;
+      width: 100%; }
+      .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto {
+        background-color: #fb383b;
+        padding: 20px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .texto__titulo {
+          font-size: 3.5rem;
+          font-weight: 600;
+          color: whitesmoke;
+          text-shadow: 2px 2px black; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .texto__parrafo {
+          color: whitesmoke;
+          padding: 5px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .list-group {
+          background-color: RGBA(195, 194, 193, 0.7);
+          font-family: "Catamaran", sans-serif;
+          font-size: 1rem;
+          width: 100%;
+          height: auto;
+          padding: 5px;
+          border-radius: .25rem; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .btn {
+          float: right;
+          font-size: 1.3rem;
+          color: whitesmoke;
+          background-color: #202020;
+          border-color: #202020; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .btn:focus {
+          box-shadow: 0 0 0 0.25rem #fb383b; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .btn:hover {
+          color: black;
+          background-color: #ffca2c;
+          border-color: #ffca2c; }
+      .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__fotobajo {
+        background-color: #fb383b;
+        background-image: url(../images/pedidos_salsas.jpg);
+        background-repeat: no-repeat; }
+      .productos .productos__grilla .grilla__salsas .salsas__foto {
+        background-color: whitesmoke;
+        background-image: url(../images/pedidos_salsa1.jpg);
+        background-repeat: no-repeat; }
+  @media only screen and (min-width: 480px) {
+    .productos .productos__grilla .grilla__fideos {
+      flex-direction: column;
+      height: 1050px; }
+      .productos .productos__grilla .grilla__fideos .fideos__foto {
+        width: 100%;
+        height: 450px; }
+      .productos .productos__grilla .grilla__fideos .fideos__opciones {
+        width: 100%; }
+        .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto {
+          width: 100%;
+          height: 300px; }
+    .productos .productos__grilla .grilla__ravioles {
+      flex-direction: column;
+      height: 1400px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones {
+        height: 700px;
+        width: 100%; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__fotobajo {
+          width: 100%;
+          height: 400px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 {
+        width: 100%;
+        height: 700px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto {
+          width: 100%;
+          height: 300px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__foto2 {
+          width: 100%;
+          height: 400px; }
+    .productos .productos__grilla .grilla__salsas {
+      flex-direction: column;
+      height: 1200px; }
+      .productos .productos__grilla .grilla__salsas .salsas__opciones3 {
+        width: 100%;
+        height: 600px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto {
+          width: 100%;
+          height: 300px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__fotobajo {
+          width: 100%;
+          height: 300px; }
+      .productos .productos__grilla .grilla__salsas .salsas__foto {
+        width: 100%;
+        height: 600px; } }
+  @media only screen and (min-width: 768px) {
+    .productos .productos__grilla .grilla__fideos {
+      display: flex;
+      flex-direction: row;
+      height: 600px; }
+      .productos .productos__grilla .grilla__fideos .fideos__foto {
+        width: 45%;
+        height: 600px; }
+      .productos .productos__grilla .grilla__fideos .fideos__opciones {
+        width: 55%;
+        height: 600px; }
+        .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto {
+          width: 100%;
+          height: 350px; }
+    .productos .productos__grilla .grilla__ravioles {
+      flex-direction: row;
+      height: 800px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones {
+        height: 300px;
+        width: 50%; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__fotobajo {
+          width: 100%;
+          height: 500px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 {
+        width: 50%;
+        height: 800px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto {
+          width: 100%;
+          height: 400px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__foto2 {
+          width: 100%;
+          height: 400px; }
+    .productos .productos__grilla .grilla__salsas {
+      flex-direction: row;
+      height: 800px; }
+      .productos .productos__grilla .grilla__salsas .salsas__opciones3 {
+        width: 65%;
+        height: 800px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto {
+          width: 100%;
+          height: 300px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__fotobajo {
+          width: 100%;
+          height: 500px; }
+      .productos .productos__grilla .grilla__salsas .salsas__foto {
+        width: 50%;
+        height: 800px; } }
+  @media only screen and (min-width: 1024px) {
+    .productos .productos__grilla .grilla__fideos {
+      display: flex;
+      flex-direction: row;
+      height: 600px; }
+      .productos .productos__grilla .grilla__fideos .fideos__foto {
+        width: 50%;
+        height: 600px; }
+      .productos .productos__grilla .grilla__fideos .fideos__opciones {
+        width: 60%;
+        height: 600px; }
+        .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto {
+          width: 100%;
+          height: 300px; }
+    .productos .productos__grilla .grilla__ravioles {
+      flex-direction: row;
+      height: 800px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones {
+        height: 300px;
+        width: 50%; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__fotobajo {
+          width: 100%;
+          height: 500px; }
+      .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 {
+        width: 50%;
+        height: 800px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto {
+          width: 100%;
+          height: 400px; }
+        .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__foto2 {
+          width: 100%;
+          height: 400px; }
+    .productos .productos__grilla .grilla__salsas {
+      flex-direction: row;
+      height: 800px; }
+      .productos .productos__grilla .grilla__salsas .salsas__opciones3 {
+        width: 65%;
+        height: 800px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto {
+          width: 100%;
+          height: 300px; }
+        .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__fotobajo {
+          width: 100%;
+          height: 500px; }
+      .productos .productos__grilla .grilla__salsas .salsas__foto {
+        width: 50%;
+        height: 800px; } }
+
+.recetas {
+  width: 100%;
+  background-color: #202020; }
+  .recetas .recetas__contenedor {
+    display: grid;
+    width: 100%;
+    height: auto; }
+    .recetas .recetas__contenedor .contenedor__plato {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 300px;
+      height: 350px;
+      margin: 20px;
+      box-shadow: 0px 0px 15px 0px #d6d6d6;
+      background-color: whitesmoke; }
+      .recetas .recetas__contenedor .contenedor__plato .plato__foto, .recetas .recetas__contenedor .contenedor__plato .plato__foto--uno, .recetas .recetas__contenedor .contenedor__plato .plato__foto--dos, .recetas .recetas__contenedor .contenedor__plato .plato__foto--tres, .recetas .recetas__contenedor .contenedor__plato .plato__foto--cuatro, .recetas .recetas__contenedor .contenedor__plato .plato__foto--cinco, .recetas .recetas__contenedor .contenedor__plato .plato__foto--seis, .recetas .recetas__contenedor .contenedor__plato .plato__foto--siete, .recetas .recetas__contenedor .contenedor__plato .plato__foto--ocho {
+        width: 100%;
+        height: 300px;
+        background-repeat: no-repeat; }
+      .recetas .recetas__contenedor .contenedor__plato .plato__foto:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--uno:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--dos:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--tres:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--cuatro:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--cinco:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--seis:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--siete:hover, .recetas .recetas__contenedor .contenedor__plato .plato__foto--ocho:hover {
+        opacity: 0.7; }
+      .recetas .recetas__contenedor .contenedor__plato .plato__texto {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        margin-bottom: 0;
+        background-color: #fb383b;
+        font-family: "Catamaran", sans-serif;
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: whitesmoke;
+        justify-content: center;
+        align-items: center; }
+      .recetas .recetas__contenedor .contenedor__plato .card-body {
+        font-size: 0.8rem; }
+      .recetas .recetas__contenedor .contenedor__plato .show {
+        width: 400px; }
+    .recetas .recetas__contenedor .plato__foto--uno {
+      grid-area: uno;
+      background-image: url("../images/recetasUno.png"); }
+    .recetas .recetas__contenedor .plato__foto--dos {
+      grid-area: dos;
+      background-image: url("../images/recetasDos.png"); }
+    .recetas .recetas__contenedor .plato__foto--tres {
+      grid-area: tres;
+      background-image: url("../images/recetasTres.jpg"); }
+    .recetas .recetas__contenedor .plato__foto--cuatro {
+      grid-area: cuatro;
+      background-image: url("../images/recetasCuatro.jpg"); }
+    .recetas .recetas__contenedor .plato__foto--cinco {
+      grid-area: cinco;
+      background-image: url("../images/recetasCinco.png"); }
+    .recetas .recetas__contenedor .plato__foto--seis {
+      grid-area: seis;
+      background-image: url("../images/recetasSeis.jpg"); }
+    .recetas .recetas__contenedor .plato__foto--siete {
+      grid-area: siete;
+      background-image: url("../images/recetasSiete.jpg"); }
+    .recetas .recetas__contenedor .plato__foto--ocho {
+      grid-area: ocho;
+      background-image: url("../images/recetasOcho.jpg"); }
+
+/* VISTA PARA MOVIL 480px ******************************/
+@media only screen and (min-width: 480px) {
+  .recetas__contenedor {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+    grid-template-areas: "uno" "dos" "tres"  "cuatro" "cinco"  "seis" "siete"  "ocho";
+    justify-items: center;
+    align-items: center; } }
+
+/* VISTA PARA TABLET 768px ******************************/
+@media only screen and (min-width: 768px) {
+  .recetas__contenedor {
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "uno dos"  "tres cuatro" "cinco seis" "siete ocho";
+    justify-items: center;
+    align-items: center; } }
+
+/* VISTA PARA DESKTOP 1024px **************************/
+@media only screen and (min-width: 1024px) {
+  .recetas__contenedor {
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "uno dos tres" "cuatro cinco seis" "siete ocho .";
+    justify-items: center;
+    align-items: center; } }
+
+.quienes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #202020;
+  width: 100%; }
+  .quienes .quienes__historia {
+    display: flex;
+    width: 100%;
+    background-color: #fb383b; }
+    .quienes .quienes__historia .historia__imagen {
+      height: 100%; }
+    .quienes .quienes__historia .historia__texto {
+      height: 100%; }
+      .quienes .quienes__historia .historia__texto .parrafo--quienes {
+        padding: 20px; }
+  .quienes .quienes__media {
+    display: flex;
+    background-color: #202020;
+    width: 100%; }
+    .quienes .quienes__media .media__texto {
+      width: 30%;
+      height: 100%;
+      background-color: #202020; }
+      .quienes .quienes__media .media__texto .parrafo--quienes {
+        padding: 20px; }
+    .quienes .quienes__media .media__imagen {
+      width: 70%;
+      max-width: 600px;
+      height: 100%; }
+  .quienes .quienes__cita {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    width: 100%;
+    height: 250px; }
+    .quienes .quienes__cita .cita__contenedor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60%; }
+      .quienes .quienes__cita .cita__contenedor .contenedor__frase {
+        color: whitesmoke;
+        font-family: "Catamaran", sans-serif;
+        font-style: italic;
+        font-size: 1.2rem;
+        word-spacing: 2px;
+        text-align: justify;
+        padding-bottom: 0px; }
+      .quienes .quienes__cita .cita__contenedor .contenedor__firma {
+        color: whitesmoke;
+        font-family: "Catamaran", sans-serif;
+        font-style: normal;
+        font-size: 1.2rem;
+        word-spacing: 2px;
+        padding-top: 0px; }
+  .quienes .quienes__slideshow {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #fb383b;
+    height: 300px;
+    width: 100%; }
+    .quienes .quienes__slideshow .carousel {
+      width: 900px;
+      height: 300px; }
+
+/* VISTA PARA MOVIL 480px ******************************/
+@media only screen and (min-width: 480px) {
+  .quienes .quienes__historia {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start; }
+    .quienes .quienes__historia .historia__imagen {
+      width: 100%; }
+  .quienes .quienes__media {
+    flex-direction: column;
+    align-items: center;
+    height: auto; }
+    .quienes .quienes__media .media__texto {
+      width: 100%; }
+      .quienes .quienes__media .media__texto #texto__tablet {
+        font-size: 1.1rem; }
+    .quienes .quienes__media .media__imagen {
+      width: 100%; }
+      .quienes .quienes__media .media__imagen #imagen__foto {
+        width: 100%;
+        height: auto; }
+  .quienes .quienes__cita {
+    flex-direction: column; }
+    .quienes .quienes__cita .cita__contenedor {
+      width: 85%; }
+      .quienes .quienes__cita .cita__contenedor .contenedor__frase {
+        font-size: 1rem; } }
+
+/* VISTA PARA TABLET 768px ******************************/
+@media only screen and (min-width: 768px) {
+  .quienes .quienes__historia {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 300px; }
+    .quienes .quienes__historia .historia__imagen {
+      width: 40%; }
+    .quienes .quienes__historia .historia__texto {
+      width: 60%; }
+      .quienes .quienes__historia .historia__texto #texto__tablet {
+        font-size: 1.1rem; }
+  .quienes .quienes__media {
+    flex-direction: row;
+    height: auto; }
+    .quienes .quienes__media .media__texto {
+      width: 40%; }
+      .quienes .quienes__media .media__texto #texto__tablet {
+        font-size: 1.1rem; }
+    .quienes .quienes__media .media__imagen {
+      width: 60%; }
+      .quienes .quienes__media .media__imagen #imagen__foto {
+        width: 100%;
+        height: auto; } }
+
+/* VISTA PARA DESKTOP 1024px **************************/
+@media only screen and (min-width: 1024px) {
+  .quienes .quienes__historia {
+    flex-direction: row;
+    width: 100%;
+    height: 400px; }
+    .quienes .quienes__historia .historia__imagen {
+      width: 40%; }
+    .quienes .quienes__historia .historia__texto {
+      width: 60%; }
+      .quienes .quienes__historia .historia__texto #texto__tablet {
+        font-size: 1.2rem; }
+  .quienes .quienes__media {
+    flex-direction: row;
+    height: 400px; }
+    .quienes .quienes__media .media__texto #texto__tablet {
+      font-size: 1.2rem; }
+  .quienes .quienes__cita .cita__contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%; } }
+
+/* VISTA PARA MOVIL 480px ********************************/
+@media only screen and (min-width: 480px) {
+  .contacto {
+    width: 100%; }
+    .contacto .contacto__contenedor {
+      flex-direction: column; }
+      .contacto .contacto__contenedor .contenedor__formulario {
+        width: 100%; }
+        .contacto .contacto__contenedor .contenedor__formulario .formulario__titulo {
+          font-size: 1.2rem; }
+      .contacto .contacto__contenedor .contenedor__datos {
+        width: 100%; }
+    .contacto .contacto__mapa {
+      width: 100%; } }
+
+/* VISTA PARA TABLET 768px ********************************/
+@media only screen and (min-width: 768px) {
+  .contacto .contacto__contenedor {
+    flex-direction: column; }
+    .contacto .contacto__contenedor .contenedor__formulario {
+      width: 100%; }
+    .contacto .contacto__contenedor .contenedor__datos {
+      width: 100%; }
+      .contacto .contacto__contenedor .contenedor__datos .formulario__titulo {
+        padding-bottom: 40px;
+        font-size: 1.3rem; }
+  .contacto .contacto__mapa {
+    width: 100%; } }
+
+/* VISTA PARA DESKTOP 1024px **************************/
+@media only screen and (min-width: 1024px) {
+  .contacto .contacto__contenedor {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 30px; }
+    .contacto .contacto__contenedor .contenedor__formulario {
+      width: 60%;
+      padding: 30px; }
+      .contacto .contacto__contenedor .contenedor__formulario .formulario__titulo {
+        font-size: 1.5rem; }
+    .contacto .contacto__contenedor .contenedor__datos {
+      width: 40%; }
+  .contacto .contacto__mapa {
+    width: 80%; } }
+
+.contacto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #202020; }
+  .contacto .contacto__contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 800px;
+    padding: 30px; }
+    .contacto .contacto__contenedor .contenedor__formulario {
+      background-color: #202020;
+      height: max-content;
+      color: whitesmoke;
+      max-width: 600px; }
+      .contacto .contacto__contenedor .contenedor__formulario .formulario__titulo {
+        padding-bottom: 55px;
+        padding-top: 1px;
+        font-weight: bold;
+        font-family: "Catamaran", sans-serif;
+        color: #fb383b;
+        height: 10px; }
+      .contacto .contacto__contenedor .contenedor__formulario .form-check-input:checked {
+        background-color: #fb383b;
+        border-color: #fb383b; }
+      .contacto .contacto__contenedor .contenedor__formulario .btn-warning {
+        color: whitesmoke;
+        background-color: #fb383b;
+        border-color: #fb383b; }
+      .contacto .contacto__contenedor .contenedor__formulario .btn-warning:hover {
+        color: black;
+        background-color: #ffca2c;
+        border-color: #ffca2c; }
+    .contacto .contacto__contenedor .contenedor__datos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 400px; }
+      .contacto .contacto__contenedor .contenedor__datos .datos__detalle {
+        list-style-type: none; }
+        .contacto .contacto__contenedor .contenedor__datos .datos__detalle .fa {
+          font-size: 2rem;
+          color: #fb383b;
+          padding: 20px; }
+        .contacto .contacto__contenedor .contenedor__datos .datos__detalle .fa:hover {
+          color: #ffca2c; }
+        .contacto .contacto__contenedor .contenedor__datos .datos__detalle .detalle__texto {
+          color: whitesmoke;
+          font-size: 1.3rem; }
+  .contacto .contacto__mapa {
+    display: flex;
+    width: 100%;
+    height: 400px;
+    padding-bottom: 30px; }
+    .contacto .contacto__mapa .mapa__ubicacion {
+      margin-top: 10px;
+      margin-bottom: 1px;
+      width: 100%;
+      -webkit-filter: grayscale(100%); }
+
+.noEncontrada {
+  width: 100%;
+  height: 100vh;
+  background-color: #202020; }
+  .noEncontrada .noEncontrada__contenedor {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: whitesmoke; }
+    .noEncontrada .noEncontrada__contenedor .contenedor__codigo {
+      font-size: 8rem;
+      color: #fb383b; }
+    .noEncontrada .noEncontrada__contenedor .contenedor__texto {
+      font-size: 4rem; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  height: 100%; }
+
+.parrafo, .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .texto__parrafo, .productos .productos__grilla .grilla__ravioles .ravioles__opciones .opciones__texto .texto__parrafo, .productos .productos__grilla .grilla__ravioles .ravioles__opciones2 .opciones2__texto .texto__parrafo, .productos .productos__grilla .grilla__salsas .salsas__opciones3 .opciones3__texto .texto__parrafo, .quienes .quienes__historia .historia__texto .parrafo--quienes, .quienes .quienes__media .media__texto .parrafo--quienes, .home .home__principal .principal__texto .texto__parrafo {
+  font-size: 1.2rem;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 300;
+  color: whitesmoke;
+  word-spacing: 3px;
+  text-align: justify; }
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #202020;
+  width: 100%;
+  height: auto;
+  /* VISTA PARA MOVIL 480px ********************************/
+  /* VISTA PARA TABLET 768px ******************************/
+  /* VISTA PARA DESKTOP 1024px **************************/ }
+  .home .home__novedades {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px;
+    padding-top: 50px;
+    justify-content: space-evenly; }
+    .home .home__novedades .novedades__primerCont {
+      display: flex; }
+      .home .home__novedades .novedades__primerCont .primerCont__contenedor {
+        width: 100%;
+        height: auto;
+        margin: 20px; }
+        .home .home__novedades .novedades__primerCont .primerCont__contenedor .contenedor__titulo {
+          padding: 10px 0 0 0;
+          color: whitesmoke;
+          font-weight: 800; }
+        .home .home__novedades .novedades__primerCont .primerCont__contenedor .contenedor__foto {
+          width: 100%;
+          height: auto; }
+        .home .home__novedades .novedades__primerCont .primerCont__contenedor .contenedor__texto {
+          color: whitesmoke;
+          text-align: justify; }
+    .home .home__novedades .novedades__segundoCont {
+      display: flex; }
+      .home .home__novedades .novedades__segundoCont .segundoCont__contenedor {
+        width: 100%;
+        height: auto;
+        margin: 20px; }
+        .home .home__novedades .novedades__segundoCont .segundoCont__contenedor .contenedor__titulo {
+          padding: 10px 0 0 0;
+          color: whitesmoke;
+          font-weight: 800; }
+        .home .home__novedades .novedades__segundoCont .segundoCont__contenedor .contenedor__foto {
+          width: 100%;
+          height: auto; }
+        .home .home__novedades .novedades__segundoCont .segundoCont__contenedor .contenedor__texto {
+          color: whitesmoke;
+          text-align: justify; }
+  .home .home__principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    padding: 30px; }
+    .home .home__principal .principal__texto {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
+      height: auto;
+      padding-bottom: 30px; }
+      .home .home__principal .principal__texto .btn-warning {
+        float: right;
+        font-size: 1.3rem;
+        color: whitesmoke;
+        background-color: #fb383b;
+        border-color: #fb383b; }
+      .home .home__principal .principal__texto .btn-warning:hover {
+        color: black;
+        background-color: #ffca2c;
+        border-color: #ffc720; }
+    .home .home__principal .principal__imagenes {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%; }
+      .home .home__principal .principal__imagenes .imagenes__foto {
+        width: 100px;
+        height: 400px;
+        opacity: 0.7; }
+      .home .home__principal .principal__imagenes .imagenes__foto:hover {
+        opacity: 1.0; }
+  .home .home__platos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding: 30px; }
+    .home .home__platos .platos__contenedor {
+      height: max-content;
+      margin: 10px;
+      padding: 10px;
+      color: whitesmoke;
+      background: #202020;
+      border-radius: 4px;
+      width: 90%;
+      width: 60%; }
+      .home .home__platos .platos__contenedor .contenedor__titulo {
+        color: #fb383b;
+        font-family: "Catamaran", sans-serif;
+        font-size: 1.5rem; }
+      .home .home__platos .platos__contenedor .contenedor__foto {
+        width: 100%; }
+      .home .home__platos .platos__contenedor .accordion-body {
+        color: black; }
+      .home .home__platos .platos__contenedor .accordion-button {
+        color: black; }
+      .home .home__platos .platos__contenedor .accordion-button:not(.collapsed) {
+        background-color: #fb383b;
+        color: black; }
+      .home .home__platos .platos__contenedor .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); }
+  .home .home__news {
+    display: flex;
+    justify-content: center;
+    padding: 30px; }
+    .home .home__news .news__contenedor {
+      color: whitesmoke;
+      padding: 10px;
+      margin-bottom: 20px; }
+      .home .home__news .news__contenedor .btn-warning {
+        color: whitesmoke;
+        background-color: #fb383b;
+        border-color: #fb383b; }
+      .home .home__news .news__contenedor .btn-warning:hover {
+        color: black;
+        background-color: #ffca2c;
+        border-color: #ffc720; }
+  @media only screen and (min-width: 480px) {
+    .home .home .home__novedades {
+      padding: 15px; }
+      .home .home .home__novedades .novedades__primerCont {
+        flex-direction: row; }
+      .home .home .home__novedades .novedades__segundoCont {
+        flex-direction: row; }
+    .home .home .home__principal {
+      flex-direction: column; }
+      .home .home .home__principal .principal__texto {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: auto; } }
+  @media only screen and (min-width: 768px) {
+    .home .home__principal {
+      flex-direction: row; }
+      .home .home__principal .principal__texto {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        padding-right: 40px; }
+    .home .home__novedades {
+      flex-direction: row; } }
+  @media only screen and (min-width: 1024px) {
+    .home .home {
+      padding: 30px; }
+      .home .home .home__novedades {
+        flex-direction: row;
+        padding: 30px; }
+        .home .home .home__novedades .novedades__primerCont {
+          flex-direction: row; }
+        .home .home .home__novedades .novedades__segundoCont {
+          flex-direction: row; }
+      .home .home .home__principal {
+        display: flex;
+        flex-direction: row; } }

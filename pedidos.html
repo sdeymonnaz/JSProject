@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="CSS/estilocss.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta name="description" content="Catálogo de productos a la venta y novedades semanales.Pastas frescas y secas y salsas y sus tiempos de preparación e ingredientes.">
+    <meta name="keywords" content="pastas, fideos, ravioles, ñoquis, spaguetti, canelones, lasaña, salsas, preparación, ingredientes">
+    <title>Apolloni Pastificio Pedidos</title>
+</head>
+
+<body>
+
+    <section class="banner">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/slideshowPedidos/slide1.jpg" class="d-block w-100" alt="Fideos">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/slideshowPedidos/slide3.jpg" class="d-block w-100" alt="Variedad de pasta">
+                </div>                   
+                <div class="carousel-item">
+                    <img src="images/slideshowPedidos/slide8.jpg" class="d-block w-100" alt="Filetto">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/slideshowPedidos/slide9.jpg" class="d-block w-100" alt="Panzotti">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="banner__titulo">
+            <h2 class="titulo__texto">Nuestros productos</h2> 
+        </div>
+    </section>   
+
+    <header class="header">
+        <a href="index.html"> <img class="header__logo" src="images/Apolloni-logo.png" alt="logo Apolloni Pastificio"></a>
+        <a href="index.html"> <h3 class="header__nombre">Apolloni Pastificio</h3></a> 
+        <nav class="header__nav">
+            <ul class="nav__lista">
+                <li><a class="lista__elem" href="index.html">Inicio</a></li>
+                <li><a class="lista__elem" href="pedidos.html">Pedidos</a></li>
+                <li><a class="lista__elem" href="recetas.html">Recetas</a></li>
+                <li><a class="lista__elem" href="quienes.html">Quienes somos</a></li>
+                <li><a class="lista__elem" href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="carrito">
+        <div carrito="carrito__contenedor">
+            <button type="button" class="btn btn-warning" id="botonCarrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+              </svg>
+              Carrito
+              <span id="cantCarrito"></span>
+            </button>
+            <button type="button" class="btn btn-warning" id="btnvaciarCarrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                  </svg>
+            </button>
+            <div id="carrito__contListado" class="oculto">
+                <ul class="list-group" id="contListado__items">
+                </ul>
+                <div id="contListado__total" class="oculto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="productos">
+        <div class="productos__grilla" class="table-responsive">
+
+            <div class="grilla__fideos">
+                <div class="fideos__foto">
+                </div>
+
+                <div class="fideos__opciones">
+                    <div class="opciones__texto">
+                        <h2 class="texto__titulo">Fideos</h2>
+                        <p class="texto__parrafo">Nuestros fideos se preparan con harina candial seleccionada y huevos de nuestra propia granja. Contamos con una amplia variedad de fideos, consulte por más opciones.</p>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFideos" aria-expanded="false" aria-controls="collapseExample">
+                              Comprar
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseFideos">
+                            <div class="card card-body">
+                                <div class="texto_lista">
+                                    <ul class="list-group" id="listaFideos" >
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opciones__fotobajo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grilla__ravioles">
+                <div class="ravioles__opciones">
+                    <div class="opciones__texto">
+                        <h2 class="texto__titulo">Ravioles</h2>
+                        <p class="texto__parrafo">Preparamos cada uno de los rellenos con la mayor atención a las texturas y sabores. Cada variedad es única. A probar todas!</p>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRavioles" aria-expanded="false" aria-controls="collapseExample">
+                              Comprar
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseRavioles">
+                            <div class="card card-body">
+                                <div class="texto_lista">
+                                    <ul class="list-group" id="listaRavioles">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opciones__fotobajo">
+                    </div>
+                </div>
+            
+                <div class="ravioles__opciones2">
+                    <div class="opciones2__foto2">
+                    </div>
+
+                    <div class="opciones2__texto">
+                        <h2 class="texto__titulo">Otras Pastas</h2>
+                        <p class="texto__parrafo">Los clásicos y las preparaciones exclusivas de nuestro maestro. </p>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtras" aria-expanded="false" aria-controls="collapseExample">
+                              Comprar
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseOtras">
+                            <div class="card card-body">
+                                <div class="texto_lista">
+                                    <ul class="list-group" id="listaOtras">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="grilla__salsas">
+                <div class="salsas__opciones3">
+                    <div class="opciones3__texto">
+                        <h2 class="texto__titulo">Salsas</h2>
+                        <p class="texto__parrafo">De salsa blanca a pesto pasando por todas las variedades de tomate. Si no está en Apolloni no existe!</p>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSalsa" aria-expanded="false" aria-controls="collapseExample">
+                              Comprar
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseSalsa">
+                            <div class="card card-body">
+                                <div class="texto_lista">
+                                    <ul class="list-group" id="listaSalsas">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opciones3__fotobajo">
+                    </div>
+                </div>
+                <div class="salsas__foto">
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <ul class="footer__listado">
+            <li class="listado__item"><a href="mailto:info@apollonipasticio.com" class="fa fa-envelope"></a></li>
+            <li class="listado__item"><a href="https://www.youtube.com" class="fa fa-youtube"></a></li>
+            <li class="listado__item"><a href="https://www.facebook.com" class="fa fa-facebook"></a></li>
+            <li class="listado__item"><a href="https://www.instagram.com" class="fa fa-instagram"></a></li>
+            <li class="listado__item"><a href="https://www.twitter.com" class="fa fa-twitter"></a></li>
+        </ul>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="JS/script.js"></script>
+</body>
+</html>
