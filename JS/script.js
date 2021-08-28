@@ -75,7 +75,7 @@ function limpiarCart(){
 //Función para generar los li que se muestran en el desplegable del carrito. Primero se carga
 //el local storage y luego se crea un li por cada objeto en el array asignándole una clase de CSS
 //Luego se carga al final una linea con el total que se fue acumulado en la iteración del for of. 
-function cargarCart(){
+function cargarCarrito(){
     carrito = JSON.parse(localStorage.getItem("carrito"));
     let contenedor = document.getElementById("contListado__items");
     let totalImp = 0;
@@ -89,14 +89,14 @@ function cargarCart(){
     let contenedorTotal = document.getElementById("contListado__total");
     let cartTotal = document.createElement("li");
     cartTotal.innerText = "Total $" + totalImp.toFixed(2);
-    cartTotal.setAttribute("class", "list-group-item total");
+    cartTotal.setAttribute("class", "list-group-item total list-group-item-dark");
     contenedorTotal.appendChild(cartTotal);
 
 }
 
-//Función para mostrar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
+//Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
 //botón modificando la clase que tienen los productos y el total.
-function showCart(){
+function desplegarCarrito(){
     let botonCartItem = document.getElementById("carrito__contListado");
     let botonCartTotal = document.getElementById("contListado__total");
     let visibilidad = document.getElementsByClassName("oculto");
@@ -109,14 +109,29 @@ function showCart(){
     }
 }
 
+//Verificar si el carrito tiene algún producto dentro y desplegarlo dentro del
+//contenedor. Si se encunetra vacío se mantiene oculto
+function mostrarCarrito(){
+    carrito = JSON.parse(localStorage.getItem("carrito")) 
+    if (carrito.length != 0){
+        let botonCartItem = document.getElementById("carrito__contListado");
+        let botonCartTotal = document.getElementById("contListado__total");
+        let visibilidad = document.getElementsByClassName("oculto");
+        botonCartItem.setAttribute("class", "visible");
+        botonCartTotal.setAttribute("class", "visible");
+        carrito = JSON.parse(localStorage.getItem("carrito"))
+    }
+}
+
+
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
     limpiarCart();
-    cargarCart();
-    showCart();
+    cargarCarrito();
+    mostrarCarrito();
 }
 
 //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
@@ -147,11 +162,11 @@ function vaciarCarrito() {
 //Asignación de las funciones que limpian el carrito, cargan los productos desde el local storage y los
 //hacen visible o invisible al botón carrito.
 let botonCart = document.getElementById("botonCarrito");
-botonCart.onclick = () =>{limpiarCart(); cargarCart(); showCart()};
+botonCart.onclick = () =>{limpiarCart(); cargarCarrito(); desplegarCarrito()};
 
 //Asignación de la función para limpiar el carrito cuando se presiona el botón con el ícono de papelera
 let botonVaciar = document.getElementById("btnvaciarCarrito");
-botonVaciar.onclick = () =>{vaciarCarrito(); limpiarCart(); cargarCart(); showCart()};
+botonVaciar.onclick = () =>{vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito()};
 
 
 //EJECUCION DEL PROGRAMA
@@ -162,6 +177,9 @@ listarProductos(productos, "otras", "listaOtras");
 listarProductos(productos, "salsas", "listaSalsas");
 
 //Carga inicial de los elementos el carrito.
-cargarCart();
+cargarCarrito();
 //Carga inicial del badge.
 crearBadge();
+//Desplegar carrito al inicio si no se encuentra vacío
+mostrarCarrito();
+
