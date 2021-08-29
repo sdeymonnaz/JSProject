@@ -349,7 +349,10 @@
           .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .texto__parrafo {
             color: whitesmoke;
             padding: 5px; }
+
           .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .list-group {
+            flex-direction: row;
+            flex-wrap:wrap;
             background-color: RGBA(195, 194, 193, 0.7);
             font-family: "Catamaran", sans-serif;
             font-size: 1rem;

@@ -9,7 +9,7 @@ class Producto {
     }
 
     calcularImp(){
-        return this.precio * 1.21
+        return (this.precio * 1.21).toFixed(2)
     }
 }
 
@@ -62,6 +62,22 @@ function crearListaProductos(listaProductos, categoria, idcontenedor) {
     }
 }
 
+function crearListaProd (listaProductos, categoria, idcontenedor) {
+    const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
+    for (const producto of listaProdFiltrada){
+        producto.precio = producto.calcularImp();
+        $(idcontenedor).append(
+        `<div>
+            <li class="list-group-item d-grid gap-2" style="display:inline-block;"> <img src="${producto.imagen}" width="150" heigh="150" alt="${producto.categoria}"> 
+                <h5 class="card-title">${producto.nombre}</h5>
+                <p class="card-text">Precio  $${producto.precio}</p>
+                <button class="btn btn-secondary btn-sm" onclick='agregarNuevoItem(${producto})'> Agregar</button>
+            </li>
+        </div>`);
+    }
+}
+
+
 //Función para limpiar el listado desplegable que se arma cuando se hace click en el carrito. Si el
 //carrito no está vacío se eliminan las líneas de la lista y la línea del total.
 function limpiarCart(){
@@ -81,15 +97,15 @@ function cargarCarrito(){
     let contenedor = document.getElementById("contListado__items");
     let totalImp = 0;
     for (let elem of carrito){
-        totalImp = totalImp + elem.precio;
+        totalImp = totalImp + parseFloat(elem.precio);
         let cartItem = document.createElement("li");
-        cartItem.innerText = elem.nombre + "  $" + (elem.precio).toFixed(2);
+        cartItem.innerText = elem.nombre + "  $" + (elem.precio);
         cartItem.setAttribute("class", "list-group-item compras");
         contenedor.appendChild(cartItem);
     }
     let contenedorTotal = document.getElementById("contListado__total");
     let cartTotal = document.createElement("li");
-    cartTotal.innerText = "Total $" + totalImp.toFixed(2);
+    cartTotal.innerText = "Total $" + totalImp;
     cartTotal.setAttribute("class", "list-group-item total list-group-item-dark");
     contenedorTotal.appendChild(cartTotal);
 
@@ -126,6 +142,7 @@ function mostrarCarrito(){
 
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
+    console.log(producto);
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
@@ -192,10 +209,12 @@ botonVaciar.onclick = () =>{vaciarCarrito(), limpiarCart(); cargarCarrito(); des
 
 //EJECUCION DEL PROGRAMA
 //Crear los cuatro grupos de productos en cada Bootstrap collapse filtrados por su categoría.
-crearListaProductos(productos, "fideos", "listaFideos");
+//crearListaProductos(productos, "fideos", "listaFideos");
 crearListaProductos(productos, "ravioles", "listaRavioles");
 crearListaProductos(productos, "otras", "listaOtras");
 crearListaProductos(productos, "salsas", "listaSalsas");
+
+crearListaProd(productos, "fideos", "#listaFideos");
 
 //Carga inicial de los elementos el carrito.
 cargarCarrito();
