@@ -1,9 +1,10 @@
 //Crea clase Producto y le asigna propiedades y un método.
 class Producto {
-    constructor(id, producto, categoria, precio) {
+    constructor(id, producto, categoria, imagen, precio) {
         this.id = id;
         this.nombre = producto;
         this.categoria = categoria;
+        this.imagen = imagen;
         this.precio = parseFloat(precio);
     }
 
@@ -17,26 +18,26 @@ class Producto {
 const productos = [];
 
 //Agregar todos los productos a la venta con su id, nombre, categoria y precio en objectos.
-productos.push(new Producto(1, "Spaguetti", "fideos", 180));
-productos.push(new Producto(2, "Tagliatelle", "fideos", 170));
-productos.push(new Producto(3, "Mostacholes", "fideos", 150));
-productos.push(new Producto(4, "Pappardelle", "fideos", 220));
-productos.push(new Producto(5, "Fetuccini", "fideos", 200));
-productos.push(new Producto(6, "Ravioles espinaca y queso", "ravioles", 300));
-productos.push(new Producto(7, "Ravioles pollo, carne y verdura", "ravioles", 310));
-productos.push(new Producto(8, "Ravioles ricota, queso y jamón", "ravioles", 340));
-productos.push(new Producto(9, "Ravioles cuatro quesos", "ravioles", 320));
-productos.push(new Producto(10, "Ravioles brócoli y zucchini", "ravioles", 350));
-productos.push(new Producto(11, "Canelones", "otras", 550));
-productos.push(new Producto(12, "Sorrentinos", "otras", 400));
-productos.push(new Producto(13, "Cappelettis", "otras", 390));
-productos.push(new Producto(14, "Lasagna", "otras", 800));
-productos.push(new Producto(15, "Gnocchi", "otras", 190));
-productos.push(new Producto(16, "Salsa bechamel", "salsas", 120));
-productos.push(new Producto(18, "Salsa bolognesa", "salsas", 160));
-productos.push(new Producto(19, "Salsa scarparo", "salsas", 150));
-productos.push(new Producto(20, "Salsa cuatro quesos", "salsas", 180));
-productos.push(new Producto(21, "Salsa liviana - Tomate y hortalizas", "salsas", 160));
+productos.push(new Producto(1, "Spaguetti", "fideos", "images/thumbnail.png", 180));
+productos.push(new Producto(2, "Tagliatelle", "fideos", "images/thumbnail.png", 170));
+productos.push(new Producto(3, "Mostacholes", "fideos", "images/thumbnail.png", 150));
+productos.push(new Producto(4, "Pappardelle", "fideos", "images/thumbnail.png", 220));
+productos.push(new Producto(5, "Fetuccini", "fideos", "images/thumbnail.png", 200));
+productos.push(new Producto(6, "Ravioles espinaca y queso", "ravioles", "images/thumbnail.png", 300));
+productos.push(new Producto(7, "Ravioles pollo, carne y verdura", "ravioles", "images/thumbnail.png", 310));
+productos.push(new Producto(8, "Ravioles ricota, queso y jamón", "ravioles", "images/thumbnail.png", 340));
+productos.push(new Producto(9, "Ravioles cuatro quesos", "ravioles", "images/thumbnail.png", 320));
+productos.push(new Producto(10, "Ravioles brócoli y zucchini", "ravioles", "images/thumbnail.png", 350));
+productos.push(new Producto(11, "Canelones", "otras", "images/thumbnail.png", 550));
+productos.push(new Producto(12, "Sorrentinos", "otras", "images/thumbnail.png", 400));
+productos.push(new Producto(13, "Cappelettis", "otras", "images/thumbnail.png", 390));
+productos.push(new Producto(14, "Lasagna", "otras", "images/thumbnail.png", 800));
+productos.push(new Producto(15, "Gnocchi", "otras", "images/thumbnail.png", 190));
+productos.push(new Producto(16, "Salsa bechamel", "salsas", "images/thumbnail.png", 120));
+productos.push(new Producto(18, "Salsa bolognesa", "salsas", "images/thumbnail.png", 160));
+productos.push(new Producto(19, "Salsa scarparo", "salsas", "images/thumbnail.png", 150));
+productos.push(new Producto(20, "Salsa cuatro quesos", "salsas", "images/thumbnail.png", 180));
+productos.push(new Producto(21, "Salsa liviana - Tomate y hortalizas", "salsas", "images/thumbnail.png", 160));
 
 
 //Inicializar una lista carrito vacía que va a recibir los productos seleccionados
@@ -44,7 +45,7 @@ carrito = [];
 
 //Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón
 //con la leyenda "Agregar" para añadir productos al carrito.
-function listarProductos(listaProductos, categoria, idcontenedor) {
+function crearListaProductos(listaProductos, categoria, idcontenedor) {
     const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
     let contenedor = document.getElementById(idcontenedor);
     for (const producto of listaProdFiltrada){
@@ -123,7 +124,6 @@ function mostrarCarrito(){
     }
 }
 
-
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
     carrito.push(producto);
@@ -132,6 +132,27 @@ function agregarNuevoItem (producto) {
     limpiarCart();
     cargarCarrito();
     mostrarCarrito();
+    confirmarItemAgregado();
+}
+
+//Agregar confirmación que el producto fue agregado al carrito
+function confirmarItemAgregado() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    
+    Toast.fire({
+        icon: 'success',
+        title: 'Producto agregado al carrito'
+    })
 }
 
 //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
@@ -139,7 +160,7 @@ function crearBadge(){
     let cart = document.getElementById("cantCarrito");
     let contador = document.createElement("badge");
     contador.innerText = carrito.length;
-    contador.setAttribute("class", "badge bg-primary");
+    contador.setAttribute("class", "badge bg-dark");
     cart.appendChild(contador);
 }
 
@@ -147,7 +168,7 @@ function crearBadge(){
 function actualizarBadge(){
     let contador = document.getElementById("cantCarrito");
     contador.innerText = carrito.length;
-    contador.setAttribute("class", "badge bg-primary");
+    contador.setAttribute("class", "badge bg-dark");
 }
 
 //Función para vaciar el carrito en localStorage y en la lista carrito. Luego se actualiza el badge
@@ -171,10 +192,10 @@ botonVaciar.onclick = () =>{vaciarCarrito(), limpiarCart(); cargarCarrito(); des
 
 //EJECUCION DEL PROGRAMA
 //Crear los cuatro grupos de productos en cada Bootstrap collapse filtrados por su categoría.
-listarProductos(productos, "fideos", "listaFideos");
-listarProductos(productos, "ravioles", "listaRavioles");
-listarProductos(productos, "otras", "listaOtras");
-listarProductos(productos, "salsas", "listaSalsas");
+crearListaProductos(productos, "fideos", "listaFideos");
+crearListaProductos(productos, "ravioles", "listaRavioles");
+crearListaProductos(productos, "otras", "listaOtras");
+crearListaProductos(productos, "salsas", "listaSalsas");
 
 //Carga inicial de los elementos el carrito.
 cargarCarrito();
