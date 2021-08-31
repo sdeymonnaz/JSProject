@@ -356,10 +356,20 @@
             background-color: RGBA(195, 194, 193, 0.7);
             font-family: "Catamaran", sans-serif;
             font-size: 1rem;
-            width: 100%;
+            width: 100vh;
             height: auto;
             padding: 5px;
             border-radius: .25rem; }
+
+            #listaFideos{
+              background-color: whitesmoke;
+              opacity: 0.9;
+              padding: 10px;
+            }
+
+            .table td{
+              padding: 5px;
+            }
 
           .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .btn {
             float: right;

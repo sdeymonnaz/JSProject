@@ -62,18 +62,18 @@ function crearListaProductos(listaProductos, categoria, idcontenedor) {
     }
 }
 
+
 function crearListaProd (listaProductos, categoria, idcontenedor) {
     const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
     for (const producto of listaProdFiltrada){
         producto.precio = producto.calcularImp();
         $(idcontenedor).append(
-        `<div>
-            <li class="list-group-item d-grid gap-2" style="display:inline-block;"> <img src="${producto.imagen}" width="150" heigh="150" alt="${producto.categoria}"> 
-                <h5 class="card-title">${producto.nombre}</h5>
-                <p class="card-text">Precio  $${producto.precio}</p>
-                <button class="btn btn-secondary btn-sm" onclick='agregarNuevoItem(${producto})'> Agregar</button>
-            </li>
-        </div>`);
+        `<tr class="table-light">
+            <td class="table-light"><img src="${producto.imagen}" width="60" heigh="60" alt="${producto.categoria}"></td>
+            <td class="table-light">${producto.nombre}</td>
+            <td class="table-light">Precio  $${producto.precio}</td>
+            <td class="table-light text-center"><button class="btn btn-secondary btn-sm" onclick='agregarNuevoItem(${producto})'> Agregar</button></td>
+        </tr>`);
     }
 }
 
@@ -105,7 +105,7 @@ function cargarCarrito(){
     }
     let contenedorTotal = document.getElementById("contListado__total");
     let cartTotal = document.createElement("li");
-    cartTotal.innerText = "Total $" + totalImp;
+    cartTotal.innerText = "Total $" + totalImp.toFixed(2);
     cartTotal.setAttribute("class", "list-group-item total list-group-item-dark");
     contenedorTotal.appendChild(cartTotal);
 
