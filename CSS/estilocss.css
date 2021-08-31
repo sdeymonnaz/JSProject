@@ -367,6 +367,18 @@
               padding: 10px;
             }
 
+            #contListado__items{
+              background-color: whitesmoke;
+            }
+
+            #contListado__total{
+              display: inline-block;
+              text-align: right;
+              background-color: rgb(134, 134, 134);
+              width: 100%;
+              font-weight: 600;
+            }
+
             .table td{
               padding: 5px;
             }

@@ -81,35 +81,33 @@ function crearListaProd (listaProductos, categoria, idcontenedor) {
 //Función para limpiar el listado desplegable que se arma cuando se hace click en el carrito. Si el
 //carrito no está vacío se eliminan las líneas de la lista y la línea del total.
 function limpiarCart(){
-    let comprasItems = document.getElementsByClassName("list-group-item compras");
+    let comprasItems = document.getElementsByClassName("table table-secondary");
     for(let i =  comprasItems.length -1; i >= 0; i--){
         comprasItems[i].remove();
     }
-    let comprasTotal = document.getElementsByClassName("list-group-item total");
-    comprasTotal[0].remove();
 }
 
-//Función para generar los li que se muestran en el desplegable del carrito. Primero se carga
-//el local storage y luego se crea un li por cada objeto en el array asignándole una clase de CSS
-//Luego se carga al final una linea con el total que se fue acumulado en la iteración del for of. 
+
+//Funcion para cargar desde el localStorage los elementos a mostrar en el carrito. Cada producto se
+//agrega en una fila de una tabla de Bootsrap y se calcula un total que se agrega al final de la tabla.
 function cargarCarrito(){
     carrito = JSON.parse(localStorage.getItem("carrito"));
-    let contenedor = document.getElementById("contListado__items");
     let totalImp = 0;
     for (let elem of carrito){
         totalImp = totalImp + parseFloat(elem.precio);
-        let cartItem = document.createElement("li");
-        cartItem.innerText = elem.nombre + "  $" + (elem.precio);
-        cartItem.setAttribute("class", "list-group-item compras");
-        contenedor.appendChild(cartItem);
+        $("#contListado__items").append(
+        `<tr class="table">
+            <td class="table table-secondary">${elem.nombre}</td>
+            <td class="table table-secondary">$${elem.precio}</td>
+        </tr>`);
     }
-    let contenedorTotal = document.getElementById("contListado__total");
-    let cartTotal = document.createElement("li");
-    cartTotal.innerText = "Total $" + totalImp.toFixed(2);
-    cartTotal.setAttribute("class", "list-group-item total list-group-item-dark");
-    contenedorTotal.appendChild(cartTotal);
-
+    $("#contListado__total").append(
+        `<tr class="table table-light">
+            <td class="table table-secondary">Total $ </td>
+            <td class="table table-secondary">${totalImp.toFixed(2)}</td>
+        </tr>`)
 }
+
 
 //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
 //botón modificando la clase que tienen los productos y el total.
@@ -142,7 +140,6 @@ function mostrarCarrito(){
 
 //Función para agregar un nuevo objeto en el carrito y actualizar el local storage
 function agregarNuevoItem (producto) {
-    console.log(producto);
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadge();
