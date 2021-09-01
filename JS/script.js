@@ -45,24 +45,6 @@ carrito = [];
 
 //Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón
 //con la leyenda "Agregar" para añadir productos al carrito.
-function crearListaProductos(listaProductos, categoria, idcontenedor) {
-    const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
-    let contenedor = document.getElementById(idcontenedor);
-    for (const producto of listaProdFiltrada){
-        producto.precio = producto.calcularImp();
-        let itemLista = document.createElement("li");
-        let botonAgregar = document.createElement("button");
-        itemLista.innerText = producto.nombre;
-        itemLista.setAttribute("class", "list-group-item");
-        contenedor.appendChild(itemLista);
-        botonAgregar.innerText = "Agregar";
-        botonAgregar.setAttribute("class", "btn btn-secondary");
-        botonAgregar.onclick = () => {agregarNuevoItem(producto)}
-        itemLista.appendChild(botonAgregar);
-    }
-}
-
-
 function crearListaProd (listaProductos, categoria, idcontenedor) {
     const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
     for (const producto of listaProdFiltrada){
@@ -72,8 +54,17 @@ function crearListaProd (listaProductos, categoria, idcontenedor) {
             <td class="table-light"><img src="${producto.imagen}" width="60" heigh="60" alt="${producto.categoria}"></td>
             <td class="table-light">${producto.nombre}</td>
             <td class="table-light">Precio  $${producto.precio}</td>
-            <td class="table-light text-center"><button class="btn btn-secondary btn-sm" onclick='agregarNuevoItem(${producto})'> Agregar</button></td>
+            <td class="table-light text-center"><button class="btn btn-secondary btn-sm" id="botonAgregar${producto.id}"> Agregar</button></td>
         </tr>`);
+        $(`#botonAgregar${producto.id}`).click(function(){
+            carrito.push(producto);
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+            actualizarBadge();
+            limpiarCart();
+            cargarCarrito();
+            mostrarCarrito();
+            confirmarItemAgregado();
+        })
     }
 }
 
@@ -81,9 +72,8 @@ function crearListaProd (listaProductos, categoria, idcontenedor) {
 //Función para limpiar el listado desplegable que se arma cuando se hace click en el carrito. Si el
 //carrito no está vacío se eliminan las líneas de la lista y la línea del total.
 function limpiarCart(){
-    let comprasItems = document.getElementsByClassName("table table-secondary");
-    for(let i =  comprasItems.length -1; i >= 0; i--){
-        comprasItems[i].remove();
+    for(let i =  $(".table-secondary").length -1; i >= 0; i--){
+        $(".table-secondary")[i].remove();
     }
 }
 
@@ -112,16 +102,16 @@ function cargarCarrito(){
 //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
 //botón modificando la clase que tienen los productos y el total.
 function desplegarCarrito(){
-    let botonCartItem = document.getElementById("carrito__contListado");
-    let botonCartTotal = document.getElementById("contListado__total");
-    let visibilidad = document.getElementsByClassName("oculto");
-    if (visibilidad.length == 2) {
-        botonCartItem.setAttribute("class", "visible");
-        botonCartTotal.setAttribute("class", "visible");
+    let visib = $(".oculto").length;
+    if ($(".oculto").length == 2) {
+        $("#carrito__contListado").attr("class", "visible");
+        $("#contListado__total").attr("class", "visible");
     } else {
-        botonCartItem.setAttribute("class", "oculto");
-        botonCartTotal.setAttribute("class", "oculto");
+        $("#carrito__contListado").attr("class", "oculto");
+        $("#contListado__total").attr("class", "oculto");
     }
+
+
 }
 
 //Verificar si el carrito tiene algún producto dentro y desplegarlo dentro del
@@ -129,25 +119,11 @@ function desplegarCarrito(){
 function mostrarCarrito(){
     carrito = JSON.parse(localStorage.getItem("carrito")) 
     if (carrito.length != 0){
-        let botonCartItem = document.getElementById("carrito__contListado");
-        let botonCartTotal = document.getElementById("contListado__total");
-        let visibilidad = document.getElementsByClassName("oculto");
-        botonCartItem.setAttribute("class", "visible");
-        botonCartTotal.setAttribute("class", "visible");
-        carrito = JSON.parse(localStorage.getItem("carrito"))
+        $("#carrito__contListado").attr("class", "visible");
+        $("#contListado__total").attr("class", "visible");
     }
 }
 
-//Función para agregar un nuevo objeto en el carrito y actualizar el local storage
-function agregarNuevoItem (producto) {
-    carrito.push(producto);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-    actualizarBadge();
-    limpiarCart();
-    cargarCarrito();
-    mostrarCarrito();
-    confirmarItemAgregado();
-}
 
 //Agregar confirmación que el producto fue agregado al carrito
 function confirmarItemAgregado() {
@@ -171,18 +147,13 @@ function confirmarItemAgregado() {
 
 //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
 function crearBadge(){
-    let cart = document.getElementById("cantCarrito");
-    let contador = document.createElement("badge");
-    contador.innerText = carrito.length;
-    contador.setAttribute("class", "badge bg-dark");
-    cart.appendChild(contador);
+    $("#cantCarrito").append(`<badge class='badge bg-dark'>${carrito.length}</badge>`);
 }
 
 //Actualiza el valor del badge cuando se agregan nuevos productos al carrito.
 function actualizarBadge(){
-    let contador = document.getElementById("cantCarrito");
-    contador.innerText = carrito.length;
-    contador.setAttribute("class", "badge bg-dark");
+    $("#cantCarrito").html(`<badge class='badge bg-dark'>${carrito.length}</badge>`);
+
 }
 
 //Función para vaciar el carrito en localStorage y en la lista carrito. Luego se actualiza el badge
@@ -196,22 +167,24 @@ function vaciarCarrito() {
 
 //Asignación de las funciones que limpian el carrito, cargan los productos desde el local storage y los
 //hacen visible o invisible al botón carrito.
-let botonCart = document.getElementById("botonCarrito");
-botonCart.onclick = () =>{limpiarCart(); cargarCarrito(); desplegarCarrito()};
+$("#botonCarrito").on("click", function() {
+    limpiarCart(), cargarCarrito(), desplegarCarrito()}
+);
 
 //Asignación de la función para limpiar el carrito cuando se presiona el botón con el ícono de papelera
-let botonVaciar = document.getElementById("btnvaciarCarrito");
-botonVaciar.onclick = () =>{vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito()};
+//let botonVaciar = document.getElementById("btnvaciarCarrito");
+//botonVaciar.onclick = () =>{vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito()};
+$("#btnvaciarCarrito").on("click", function() {
+    vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito()}
+);
 
 
 //EJECUCION DEL PROGRAMA
 //Crear los cuatro grupos de productos en cada Bootstrap collapse filtrados por su categoría.
-//crearListaProductos(productos, "fideos", "listaFideos");
-crearListaProductos(productos, "ravioles", "listaRavioles");
-crearListaProductos(productos, "otras", "listaOtras");
-crearListaProductos(productos, "salsas", "listaSalsas");
-
 crearListaProd(productos, "fideos", "#listaFideos");
+crearListaProd(productos, "ravioles", "#listaRavioles");
+crearListaProd(productos, "otras", "#listaOtras");
+crearListaProd(productos, "salsas", "#listaSalsas");
 
 //Carga inicial de los elementos el carrito.
 cargarCarrito();

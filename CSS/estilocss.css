@@ -367,6 +367,24 @@
               padding: 10px;
             }
 
+            #listaRavioles{
+              background-color: whitesmoke;
+              opacity: 0.9;
+              padding: 10px;
+            }
+
+            #listaOtras{
+              background-color: whitesmoke;
+              opacity: 0.9;
+              padding: 10px;
+            }
+
+            #listaSalsas{
+              background-color: whitesmoke;
+              opacity: 0.9;
+              padding: 10px;
+            }
+
             #contListado__items{
               background-color: whitesmoke;
             }
