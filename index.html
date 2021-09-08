@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#" />
     <meta name="description" content="Catálogo de productos a la venta y novedades semanales.Pastas frescas y secas y salsas y sus tiempos de preparación e ingredientes.">
     <meta name="keywords" content="pastas, fideos, ravioles, ñoquis, spaguetti, canelones, lasaña, salsas, preparación, ingredientes">
     <title>Apolloni Pastificio Pedidos</title>
@@ -63,7 +63,7 @@
     </header>
 
     <section class="carrito">
-        <div carrito="carrito__contenedor">
+        <div class="carrito__cont">
             <button type="button" class="btn btn-warning" id="botonCarrito">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                     <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
@@ -96,19 +96,11 @@
                     <div class="opciones__texto">
                         <h2 class="texto__titulo">Fideos</h2>
                         <p class="texto__parrafo">Nuestros fideos se preparan con harina candial seleccionada y huevos de nuestra propia granja. Contamos con una amplia variedad de fideos, consulte por más opciones.</p>
-                        <p>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFideos" aria-expanded="false" aria-controls="collapseExample">
-                              Comprar
-                            </button>
-                        </p>
-                        <div class="collapse collapse-horizontal" id="collapseFideos">
-                            <div>
-                                <div class="texto_lista">
+                        <button class="btn btn-primary" id="botonFideos" type="button">Mostrar opciones</button>
+                                <div class="texto_lista_fideos" style="display: none;">
                                     <table class="table table-light align-middle" id="listaFideos">
                                     </table>
                                 </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="opciones__fotobajo">
@@ -122,13 +114,11 @@
                         <h2 class="texto__titulo">Ravioles</h2>
                         <p class="texto__parrafo">Preparamos cada uno de los rellenos con la mayor atención a las texturas y sabores. Cada variedad es única. A probar todas!</p>
                         <p>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRavioles" aria-expanded="false" aria-controls="collapseExample">
-                              Comprar
-                            </button>
+                            <button class="btn btn-primary" id="botonRavioles" type="button">Mostrar opciones</button>
                         </p>
-                        <div class="collapse collapse-horizontal" id="collapseRavioles">
+                        <div>
                             <div>
-                                <div class="texto_lista">
+                                <div class="texto_lista_ravioles" style="display: none;">
                                     <table class="table table-light align-middle" id="listaRavioles">
                                     </table>
                                 </div>
@@ -147,13 +137,11 @@
                         <h2 class="texto__titulo">Otras Pastas</h2>
                         <p class="texto__parrafo">Los clásicos y las preparaciones exclusivas de nuestro maestro. </p>
                         <p>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtras" aria-expanded="false" aria-controls="collapseExample">
-                              Comprar
-                            </button>
+                            <button class="btn btn-primary" id="botonOtras">Mostrar opciones</button>
                         </p>
-                        <div class="collapse collapse-horizontal" id="collapseOtras">
+                        <div>
                             <div>
-                                <div class="texto_lista">
+                                <div class="texto_lista_otras" style="display: none;">
                                     <table class="table table-light align-middle" id="listaOtras">
                                     </table>
                                 </div>
@@ -169,13 +157,11 @@
                         <h2 class="texto__titulo">Salsas</h2>
                         <p class="texto__parrafo">De salsa blanca a pesto pasando por todas las variedades de tomate. Si no está en Apolloni no existe!</p>
                         <p>
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSalsa" aria-expanded="false" aria-controls="collapseExample">
-                              Comprar
-                            </button>
+                            <button class="btn btn-primary" id="botonSalsas">Mostrar opciones</button>
                         </p>
-                        <div class="collapse collapse-horizontal"  id="collapseSalsa">
+                        <div>
                             <div>
-                                <div class="texto_lista">
+                                <div class="texto_lista_salsas" style="display: none;">
                                     <table class="table table-light align-middle"  id="listaSalsas">
                                     </table>
                                 </div>
@@ -208,7 +194,7 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- sweet alert -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
     <!-- my script -->
     <script src="JS/script.js"></script>
 </body>

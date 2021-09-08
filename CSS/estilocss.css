@@ -401,6 +401,18 @@
               padding: 5px;
             }
 
+            .texto_lista_ravioles{
+              display: none;
+            }
+
+            .texto_lista_otras{
+              display: none;
+            }
+
+            .texto_lista_salsas{
+              display: none;
+            }
+
           .productos .productos__grilla .grilla__fideos .fideos__opciones .opciones__texto .btn {
             float: right;
             font-size: 1.3rem;
