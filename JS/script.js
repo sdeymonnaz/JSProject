@@ -14,44 +14,41 @@ class Producto {
 }
 
 
-//Inicializa una lista vacia para agregar los nuevos objetos de tipo Producto.
-const productos = [];
-
-//Agregar todos los productos a la venta con su id, nombre, categoria y precio en objectos.
-productos.push(new Producto(1, "Spaguetti", "fideos", "images/thumbnail.png", 180));
-productos.push(new Producto(2, "Tagliatelle", "fideos", "images/thumbnail.png", 170));
-productos.push(new Producto(3, "Mostacholes", "fideos", "images/thumbnail.png", 150));
-productos.push(new Producto(4, "Pappardelle", "fideos", "images/thumbnail.png", 220));
-productos.push(new Producto(5, "Fetuccini", "fideos", "images/thumbnail.png", 200));
-productos.push(new Producto(6, "Ravioles espinaca y queso", "ravioles", "images/thumbnail.png", 300));
-productos.push(new Producto(7, "Ravioles pollo, carne y verdura", "ravioles", "images/thumbnail.png", 310));
-productos.push(new Producto(8, "Ravioles ricota, queso y jamón", "ravioles", "images/thumbnail.png", 340));
-productos.push(new Producto(9, "Ravioles cuatro quesos", "ravioles", "images/thumbnail.png", 320));
-productos.push(new Producto(10, "Ravioles brócoli y zucchini", "ravioles", "images/thumbnail.png", 350));
-productos.push(new Producto(11, "Canelones", "otras", "images/thumbnail.png", 550));
-productos.push(new Producto(12, "Sorrentinos", "otras", "images/thumbnail.png", 400));
-productos.push(new Producto(13, "Cappelettis", "otras", "images/thumbnail.png", 390));
-productos.push(new Producto(14, "Lasagna", "otras", "images/thumbnail.png", 800));
-productos.push(new Producto(15, "Gnocchi", "otras", "images/thumbnail.png", 190));
-productos.push(new Producto(16, "Salsa bechamel", "salsas", "images/thumbnail.png", 120));
-productos.push(new Producto(18, "Salsa bolognesa", "salsas", "images/thumbnail.png", 160));
-productos.push(new Producto(19, "Salsa scarparo", "salsas", "images/thumbnail.png", 150));
-productos.push(new Producto(20, "Salsa cuatro quesos", "salsas", "images/thumbnail.png", 180));
-productos.push(new Producto(21, "Salsa liviana - Tomate y hortalizas", "salsas", "images/thumbnail.png", 160));
+//Inicializa una lista vacia global para agregar los nuevos objetos de tipo Producto.
+let productos = [];
 
 //Inicializar una lista carrito vacía que va a recibir los productos seleccionados
 let carrito = [];
 
-
 //Carga del método ready
 $( document ).ready(function() {
+
+    //Obtener los productos desde un archivo JSON en forma asincrónica
+    const obtenerJsonProductos= () =>{
+        //cargar productos desde archivo JSON
+        const URLJSON = "productos.json";
+        $.getJSON(URLJSON, function(respuesta, estado){
+            //Si se logra establecer la conexión cargar el contenido del JSON y ejecutar la función para renderizarlos
+            if (estado == "success"){
+                productos = respuesta.stock;
+                crearListaProd(productos, "fideos", "#listaFideos");
+                crearListaProd(productos, "ravioles", "#listaRavioles");
+                crearListaProd(productos, "otras", "#listaOtras");
+                crearListaProd(productos, "salsas", "#listaSalsas");
+            }
+        });
+    };
 
 
     //Función para crear el listado de productos y ubicarlo dentro del contenedor respectivo junto a un botón
     //con la leyenda "Agregar" para añadir productos al carrito.
     function crearListaProd (listaProductos, categoria, idcontenedor) {
+        //Filtra la lista de productos por categoria para agruparlo en el contenedor correspondiente
         const listaProdFiltrada = listaProductos.filter(elemento =>  elemento.categoria === categoria);
-        for (const producto of listaProdFiltrada){
+        //Itera sobre la lista filtrada para armar los listados de productos
+        for (let producto of listaProdFiltrada){
+            //Convierte el objeto extraído del JSON en un objeto de clase Producto para aplicarle el método calcularImp()
+            producto = new Producto (producto.id, producto.nombre, producto.categoria, producto.imagen, producto.precio)
             producto.precio = producto.calcularImp();
             $(idcontenedor).append(
             `<tr class="table-light">
@@ -76,6 +73,7 @@ $( document ).ready(function() {
         }
     }
 
+    
 
     //Funcion para agregar toggle a los botones Comprar en cada sección de productos
     function crearToggle (boton, listado) {
@@ -248,15 +246,36 @@ $( document ).ready(function() {
         vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito(); $("#botonPagar").html("Pagar")}
     );
 
+    //Obtiene información meteorológica desde RapidAPI seteando los parámetros para Buenos Aires. Luego ejecuta ajax
+    //para obtener un JSON con una lista de objetos que se usan generando variables y se agregan al contenedor
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://community-open-weather-map.p.rapidapi.com/weather?q=Buenos%20Aires%2C%20Argentina&id=2172797&lang=sp&units=metric",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+            "x-rapidapi-key": "ebf68201a4msh9533cb8582d2216p16a177jsnbabb10154d3e"
+        }
+    };
+    
+    const obtenerClima = () => {
+        $.ajax(settings).done(function (response) {
+            let dataCielo = response.weather[0];
+            let dataTemp = response.main;
+            $("#clima").append(
+                `<p>Ciudad: ${response.name}</p>
+                  <p>Cielo: ${dataCielo.description}</p>
+                  <p>Temperatura: ${dataTemp.temp}</p>
+                  <p>Sens. Térm.: ${dataTemp.feels_like}</p>`)
+        });
+    }
+    
+
 
     //EJECUCION DEL PROGRAMA
-    //Crear los cuatro grupos de productos en cada Bootstrap collapse filtrados por su categoría.
-    crearListaProd(productos, "fideos", "#listaFideos");
-    crearListaProd(productos, "ravioles", "#listaRavioles");
-    crearListaProd(productos, "otras", "#listaOtras");
-    crearListaProd(productos, "salsas", "#listaSalsas");
-
-
+    //Ejecutar función para obtener los datos de productos del archivo JSON y renderizarlos en cada contenedor
+    obtenerJsonProductos();
 
     //Carga inicial de los elementos el carrito.
     cargarCarrito();
@@ -265,4 +284,6 @@ $( document ).ready(function() {
     //Desplegar carrito al inicio si no se encuentra vacío
     mostrarCarrito();
 
+    //Carga la información del clima desde la API RapidAPI en el contenedor #clima
+    obtenerClima();
 });

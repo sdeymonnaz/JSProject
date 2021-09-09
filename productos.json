@@ -1,0 +1,142 @@
+{
+    "stock": [{
+        "id": 1,
+        "nombre": "Spaguetti",
+        "categoria": "fideos",
+        "imagen": "images/thumbnail.png",
+        "precio": 180
+    },
+    {
+        "id": 2,
+        "nombre": "Tagliatelle",
+        "categoria": "fideos",
+        "imagen": "images/thumbnail.png",
+        "precio": 170
+    },
+    {
+        "id": 3,
+        "nombre": "Mostacholes",
+        "categoria": "fideos",
+        "imagen": "images/thumbnail.png",
+        "precio": 150
+    },
+    {
+        "id": 4,
+        "nombre": "Pappardelle",
+        "categoria": "fideos",
+        "imagen": "images/thumbnail.png",
+        "precio": 220
+    },
+    {
+        "id": 5,
+        "nombre": "Fetuccini",
+        "categoria": "fideos",
+        "imagen": "images/thumbnail.png",
+        "precio": 200
+    },
+    {
+        "id": 6,
+        "nombre": "Ravioles espinaca y queso",
+        "categoria": "ravioles",
+        "imagen": "images/thumbnail.png",
+        "precio": 300
+    },
+    {
+        "id": 7,
+        "nombre": "Ravioles pollo, carne y verdura",
+        "categoria": "ravioles",
+        "imagen": "images/thumbnail.png",
+        "precio": 310
+    },
+    {
+        "id": 8,
+        "nombre": "Ravioles ricota, queso y jamón",
+        "categoria": "ravioles",
+        "imagen": "images/thumbnail.png",
+        "precio": 340
+    },
+    {
+        "id": 9,
+        "nombre": "Ravioles cuatro quesos",
+        "categoria": "ravioles",
+        "imagen": "images/thumbnail.png",
+        "precio": 320
+    },
+    {
+        "id": 10,
+        "nombre": "Ravioles brócoli y zucchini",
+        "categoria": "ravioles",
+        "imagen": "images/thumbnail.png",
+        "precio": 350
+    },
+    {
+        "id": 11,
+        "nombre": "Canelones",
+        "categoria": "otras",
+        "imagen": "images/thumbnail.png",
+        "precio": 550
+    },
+    {
+        "id": 12,
+        "nombre": "Sorrentinos",
+        "categoria": "otras",
+        "imagen": "images/thumbnail.png",
+        "precio": 400
+    },
+    {
+        "id": 13,
+        "nombre": "Cappelettis",
+        "categoria": "otras",
+        "imagen": "images/thumbnail.png",
+        "precio": 345
+    },
+    {
+        "id": 14,
+        "nombre": "Lasagna",
+        "categoria": "otras",
+        "imagen": "images/thumbnail.png",
+        "precio": 800
+    },
+    {
+        "id": 15,
+        "nombre": "Gnocchi",
+        "categoria": "otras",
+        "imagen": "images/thumbnail.png",
+        "precio": 190
+    },
+    {
+        "id": 16,
+        "nombre": "Salsa bechamel",
+        "categoria": "salsas",
+        "imagen": "images/thumbnail.png",
+        "precio": 120
+    },
+    {
+        "id": 17,
+        "nombre": "Salsa bolognesa",
+        "categoria": "salsas",
+        "imagen": "images/thumbnail.png",
+        "precio": 160
+    },
+    {
+        "id": 18,
+        "nombre": "Salsa scarparo",
+        "categoria": "salsas",
+        "imagen": "images/thumbnail.png",
+        "precio": 150
+    },
+    {
+        "id": 19,
+        "nombre": "Salsa cuatro quesos",
+        "categoria": "salsas",
+        "imagen": "images/thumbnail.png",
+        "precio": 180
+    },
+    {
+        "id": 20,
+        "nombre": "Salsa liviana - Tomate y hortalizas",
+        "categoria": "salsas",
+        "imagen": "images/thumbnail.png",
+        "precio": 160
+    }]
+}

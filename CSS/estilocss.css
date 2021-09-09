@@ -190,6 +190,17 @@
       .footer .footer__listado .listado__item .fa:hover {
         color: #fb383b; }
 
+#clima{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 8px;
+  background-color: #202020;
+  color: whitesmoke;
+
+}
+
 .carrito {
   display: flex;
   flex-direction: row;
