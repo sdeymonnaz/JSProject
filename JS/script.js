@@ -272,7 +272,6 @@ $( document ).ready(function() {
     }
     
 
-
     //EJECUCION DEL PROGRAMA
     //Ejecutar función para obtener los datos de productos del archivo JSON y renderizarlos en cada contenedor
     obtenerJsonProductos();
