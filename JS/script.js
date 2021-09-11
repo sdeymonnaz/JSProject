@@ -57,6 +57,7 @@ $( document ).ready(function() {
                 <td class="table-light">$${producto.precio}</td>
                 <td class="table-light text-center"><button class="btn btn-secondary btn-sm" id="botonAgregar${producto.id}"> Agregar</button></td>
             </tr>`);
+            //Agrega funcionalidad al boton Agregar agregando el producto al carrito
             $(`#botonAgregar${producto.id}`).click(function(){
                 carrito = JSON.parse(localStorage.getItem("carrito"));
                 if (carrito == null){
@@ -73,7 +74,6 @@ $( document ).ready(function() {
         }
     }
 
-    
 
     //Funcion para agregar toggle a los botones Comprar en cada sección de productos
     function crearToggle (boton, listado) {
@@ -108,17 +108,51 @@ $( document ).ready(function() {
 
     //Funcion para cargar desde el localStorage los elementos a mostrar en el carrito. Cada producto se
     //agrega en una fila de una tabla de Bootsrap y se calcula un total que se agrega al final de la tabla.
+    //Luego se agrega la funcionalidad para borrar el producto individual del carrito.
     function cargarCarrito(){
-        carrito = JSON.parse(localStorage.getItem("carrito"));
         if (carrito != null) {
+            carrito = JSON.parse(localStorage.getItem("carrito"));
             let totalImp = 0;
-            for (let elem of carrito){
-                totalImp = totalImp + parseFloat(elem.precio);
+            //Crea una nueva lista de objetos "contador" a partir del carrito con valores únicos y cuenta
+            //la cantidad de repeticiones.
+            const contador = [...carrito.reduce( (mp, o) => {
+            if (!mp.has(o.id)) mp.set(o.id, { ...o, count: 0 });
+                mp.get(o.id).count++;
+                return mp;
+            }, new Map).values()];
+            //Render de los encabezados de las columnas de la tabla carrito usando Bootstrap
+            $("#contListado__items").append(
+                `<tr class="table table-light">
+                    <th class="table table-secondary" style="padding: 10px;">Producto</th>
+                    <th class="table table-secondary" style="padding: 10px;">Precio</th>
+                    <th class="table table-secondary" style="width: 15px; padding: 10px; text-align: center">Cant.</th>
+                    <th class="table table-secondary" style="padding: 10px;">Subtotal</th>
+                </tr>`)
+            //Render de cada objeto de la lista contador
+            for (let elem of contador){
+                totalImp = totalImp + parseFloat(elem.precio * elem.count);
                 $("#contListado__items").append(
-                `<tr class="table">
-                    <td class="table table-secondary">${elem.nombre}</td>
-                    <td class="table table-secondary">$${elem.precio}</td>
-                </tr>`);
+                    `<tr class="table table-light">
+                        <td class="table table-secondary" style="padding: 10px;">${elem.nombre}</td>
+                        <td class="table table-secondary" style="padding: 10px;">$${elem.precio}</td>
+                        <td class="table table-secondary" style="width: 15px; padding: 10px; text-align: center">${elem.count}</td>
+                        <td class="table table-secondary" style="padding: 10px;">$${parseFloat(elem.precio * elem.count).toFixed(2)}</td>
+                        <td class="table table-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-x-circle-fill"  id="quitar${elem.id}" style="background-color: #f5f5f5" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                            </svg></i>
+                        </td>
+                    </tr>`);
+                //Funcionalidad de eliminar un producto individual del carrito
+                $(`#quitar${elem.id}`).click(function() {
+                    const elimProd = carrito.find(v => v.id == `${elem.id}`);
+                    const elimIndex = carrito.indexOf(elimProd);
+                    carrito.splice(elimIndex, 1);
+                    localStorage.setItem("carrito", JSON.stringify(carrito));
+                    actualizarBadge();
+                    limpiarCart();
+                    cargarCarrito();
+                    mostrarCarrito();       
+                })
             }
             //Crea la línea con el total agregando el botón Pagar
             $("#contListado__total").append(
@@ -159,10 +193,9 @@ $( document ).ready(function() {
                         $("#botonPagar").html("Pagar");
                     }
                 });
-            });
+            });              
         }
     }
-
 
     //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
     //botón modificando la clase que tienen los productos y el total.
@@ -246,7 +279,7 @@ $( document ).ready(function() {
         vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito(); $("#botonPagar").html("Pagar")}
     );
 
-    //Obtiene información meteorológica desde RapidAPI seteando los parámetros para Buenos Aires. Luego ejecuta ajax
+    //Obtiene información meteorológica desde RapidAPI seteando los parámetros para Buenos Aires. Luego ejecuta Ajax
     //para obtener un JSON con una lista de objetos que se usan generando variables y se agregan al contenedor
     const settings = {
         "async": true,

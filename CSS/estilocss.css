@@ -245,7 +245,14 @@
   
     .oculto{
       display: none; }
-  
+
+    #contListado__items{
+      width: 400px;
+    }
+
+    .table .table-secondary{
+      vertical-align: middle;
+    }
 
 
 .banner {
