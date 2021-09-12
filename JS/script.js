@@ -162,22 +162,52 @@ $( document ).ready(function() {
                     <td class="table table-secondary"><button class="btn btn-danger" id="botonPagar">Pagar</button></td>
                 </tr>`);
             
-            //Agrega el div con la información para hacer el pago usando form de Bootstrap
+            //Obtener año y mes actual para usar en formulario de pago
+            let currentYear = new Date().getFullYear();
+            let currentMonth = new Date().getMonth() + 1;
+
+            //Agrega el div con la información para hacer el pago usando un form de Bootstrap
             $(".carrito__cont").append(
                 `<div id="formPago" style="display: none">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Nro tarjeta de crédito</span>
-                        <input type="text" class="form-control" placeholder="Nro Tarjeta de crédito" aria-label="Nro tarjeta de crédito">
+                        <span class="input-group-text has-validation" id="basic-addon1">Nro tarjeta de crédito</span>
+                        <input type="number" class="form-control" placeholder="#### #### #### ####" id="creditCardNr" aria-label="Nro tarjeta de crédito" required>
                     </div>
                     <div class="input-group mb-3">
-                        <span class="input-group-text">Mes y año de vencimiento</span>
-                        <input type="text" aria-label="Mes" class="form-control" placeholder="Mes">
-                        <input type="text" aria-label="Anio" class="form-control" placeholder="Año">
+                        <span class="input-group-text" for="inputMes">Mes</span>
+                        <select class="form-select" id="inputMes" placeholder="Mes">
+                            <option selected>Mes</option>
+                            <option value="1">01</option>
+                            <option value="2">02</option>
+                            <option value="3">03</option>
+                            <option value="4">04</option>
+                            <option value="5">05</option>
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <span class="input-group-text" for="inputAnio">Año</span>
+                        <select class="form-select" id="inputAnio">
+                            <option selected>Año</option>
+                            <option value=${currentYear}>${currentYear}</option>
+                            <option value=${currentYear+1}>${currentYear+1}</option>
+                            <option value=${currentYear+2}>${currentYear+2}</option>
+                            <option value=${currentYear+3}>${currentYear+3}</option>
+                            <option value=${currentYear+4}>${currentYear+4}</option>
+                        </select>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Código de seguridad</span>
-                        <input type="text" class="form-control" placeholder="Código de seguridad" aria-label="Código de seguridad">
+                        <input type="password" id="creditCardCode" class="form-control" placeholder="###" aria-label="Código de seguridad" required>
                     </div>
+                    <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon">Titular</span>
+                    <input type="text" id="titular" class="form-control" placeholder="Nombre del titular" aria-label="Titular" required>
+                </div>
                     <div>
                         <button type="submit" value="submit" class="btn btn-danger" id="botonEnviar">Enviar</button>
                     </div>
@@ -193,9 +223,34 @@ $( document ).ready(function() {
                         $("#botonPagar").html("Pagar");
                     }
                 });
-            });              
+            });
+            
+            //Validar entradas en el formulario de pago
+            $("#botonEnviar").click(function(){
+                let ccNr = $("#creditCardNr").val();
+                let ccCode = $("#creditCardCode").val();
+                let ccTitular = $("#titular").val();
+                let ccMes = $("#inputMes").val();
+                let ccAnio = $("#inputAnio").val();
+                if (ccNr.length != 16){
+                    validarTarjeta();
+                }
+                else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes < currentMonth & ccAnio == currentYear)){
+                    validarFecha(); 
+                }
+                else if (ccCode.length != 3){
+                    validarCodigo(); 
+                }
+                else if (ccCode.length != 3){
+                    validarCodigo(); 
+                }
+                else if (ccTitular.length == 0){
+                    validarTitular();
+                }
+            })
         }
     }
+
 
     //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
     //botón modificando la clase que tienen los productos y el total.
@@ -242,6 +297,89 @@ $( document ).ready(function() {
             title: 'Producto agregado al carrito'
         })
     }
+
+
+    //Mostrar mensaje de error cuando el valor ingresado como tarjeta de credito es incorrecto
+    function validarTarjeta() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        
+        Toast.fire({
+            icon: 'error',
+            title: 'Número de tarjeta de crédito inválido'
+        })
+    }
+
+    //Mostrar mensaje de error cuando no selecciona el año o el mes
+    function validarFecha() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        
+        Toast.fire({
+            icon: 'error',
+            title: 'Combinación de mes y año inválida'
+        })
+    }
+
+    //Mostrar mensaje de error cuando el valor ingresado como codigo de seguridad es incorrecto
+    function validarCodigo() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        
+        Toast.fire({
+            icon: 'error',
+            title: 'Código de seguridad de crédito inválido'
+        })
+    }
+
+
+    //Mostrar emnsaje de error cuando el valor ingresado como codigo de seguridad es incorrecto
+    function validarTitular() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        
+        Toast.fire({
+            icon: 'error',
+            title: 'Titular de tarjeta vacío'
+        })
+    }
+
 
     //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
     function crearBadge(){
