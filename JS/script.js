@@ -161,6 +161,7 @@ $( document ).ready(function() {
                     <td class="table table-secondary align-middle">${totalImp.toFixed(2)}</td>
                     <td class="table table-secondary"><button class="btn btn-danger" id="botonPagar">Pagar</button></td>
                 </tr>`);
+                
             
             //Obtener año y mes actual para usar en formulario de pago
             let currentYear = new Date().getFullYear();
@@ -225,7 +226,7 @@ $( document ).ready(function() {
                 });
             });
             
-            //Validar entradas en el formulario de pago
+            //Validar entradas en el formulario de pago y prsentar el mensaje de error o confirmación
             $("#botonEnviar").click(function(){
                 let ccNr = $("#creditCardNr").val();
                 let ccCode = $("#creditCardCode").val();
@@ -233,19 +234,19 @@ $( document ).ready(function() {
                 let ccMes = $("#inputMes").val();
                 let ccAnio = $("#inputAnio").val();
                 if (ccNr.length != 16){
-                    validarTarjeta();
+                    validarTarjeta('Número de tarjeta de crédito inválido');
                 }
                 else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes < currentMonth & ccAnio == currentYear)){
-                    validarFecha(); 
+                    validarTarjeta('Combinación de mes y año inválida'); 
                 }
                 else if (ccCode.length != 3){
-                    validarCodigo(); 
-                }
-                else if (ccCode.length != 3){
-                    validarCodigo(); 
+                    validarTarjeta('Código de seguridad inválido'); 
                 }
                 else if (ccTitular.length == 0){
-                    validarTitular();
+                    validarTarjeta('Titular de tarjeta vacío');
+                }
+                else{
+                    envioAceptado();
                 }
             })
         }
@@ -299,8 +300,10 @@ $( document ).ready(function() {
     }
 
 
-    //Mostrar mensaje de error cuando el valor ingresado como tarjeta de credito es incorrecto
-    function validarTarjeta() {
+    //Mostrar mensaje de error cuando el valor ingresado como tarjeta de credito es incorrecto,
+    //la fecha es anterior a la fecha actual, el código de seguridad no tiene 3 dígitos o el
+    //campo titular está vacío
+    function validarTarjeta(mensaje) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -315,12 +318,12 @@ $( document ).ready(function() {
         
         Toast.fire({
             icon: 'error',
-            title: 'Número de tarjeta de crédito inválido'
+            title: mensaje
         })
     }
 
-    //Mostrar mensaje de error cuando no selecciona el año o el mes
-    function validarFecha() {
+    //Mostrar mensaje de confirmación cuando la tarjeta de crédito es aceptada
+    function envioAceptado() {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -334,52 +337,10 @@ $( document ).ready(function() {
         })
         
         Toast.fire({
-            icon: 'error',
-            title: 'Combinación de mes y año inválida'
+            icon: 'success',
+            title: 'Orden creada correctamente'
         })
     }
-
-    //Mostrar mensaje de error cuando el valor ingresado como codigo de seguridad es incorrecto
-    function validarCodigo() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        
-        Toast.fire({
-            icon: 'error',
-            title: 'Código de seguridad de crédito inválido'
-        })
-    }
-
-
-    //Mostrar emnsaje de error cuando el valor ingresado como codigo de seguridad es incorrecto
-    function validarTitular() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        
-        Toast.fire({
-            icon: 'error',
-            title: 'Titular de tarjeta vacío'
-        })
-    }
-
 
     //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
     function crearBadge(){
@@ -417,31 +378,28 @@ $( document ).ready(function() {
         vaciarCarrito(), limpiarCart(); cargarCarrito(); desplegarCarrito(); $("#botonPagar").html("Pagar")}
     );
 
-    //Obtiene información meteorológica desde RapidAPI seteando los parámetros para Buenos Aires. Luego ejecuta Ajax
-    //para obtener un JSON con una lista de objetos que se usan generando variables y se agregan al contenedor
-    const settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://community-open-weather-map.p.rapidapi.com/weather?q=Buenos%20Aires%2C%20Argentina&id=2172797&lang=sp&units=metric",
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
-            "x-rapidapi-key": "ebf68201a4msh9533cb8582d2216p16a177jsnbabb10154d3e"
-        }
-    };
-    
+
+    //Obtiene información meteorológica desde Open-Meteo seteando los parámetros para Buenos Aires. Luego ejecuta Ajax
+    //para obtener un JSON con una lista de objetos que se usan generando variables que se agregan al contenedor
+    const URLClima = 'https://api.open-meteo.com/v1/forecast?latitude=-34.6118&longitude=-58.4173&current_weather=true&timezone=America/Argentina/Buenos_Aires'
+
+    const codes = {"0":"Despejado", "1":"Mayormente despejado", "2":"Parcialmente nublado", "3":"Cubierto", "51":"Llovizna ligera", "52":"Llovizna moderada", "53":"Llovizna intensa", "61":"Lluvia ligera", "53":"Lluvia moderada", "53":"Lluvia intensa", "80":"Tormenta ligera", "81":"Tormenta intermedia", "82":"Tormenta fuerte"}
+
     const obtenerClima = () => {
-        $.ajax(settings).done(function (response) {
-            let dataCielo = response.weather[0];
-            let dataTemp = response.main;
+        $.ajax(URLClima).done(function (response) {
+            let hora = new Date();
+            let dataTemp = response.current_weather.temperature;
+            let dataWind = response.current_weather.windspeed;
+            let dataCode = response.current_weather.weathercode;
+
             $("#clima").append(
-                `<p>Ciudad: ${response.name}</p>
-                  <p>Cielo: ${dataCielo.description}</p>
-                  <p>Temperatura: ${dataTemp.temp}</p>
-                  <p>Sens. Térm.: ${dataTemp.feels_like}</p>`)
+                `<p>Hora: ${hora.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
+                <p>Clima: ${codes[dataCode]}</p>
+                <p>Temperatura: ${dataTemp}°</p>
+                <p>Viento: ${dataWind} km/h</p>`)
         });
     }
-    
+
 
     //EJECUCION DEL PROGRAMA
     //Ejecutar función para obtener los datos de productos del archivo JSON y renderizarlos en cada contenedor
