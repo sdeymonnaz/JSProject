@@ -69,7 +69,7 @@ $( document ).ready(function() {
                 limpiarCart();
                 cargarCarrito();
                 mostrarCarrito();
-                confirmarItemAgregado();
+                mensajeExito('Producto agregado al carrito');
             })
         }
     }
@@ -104,6 +104,11 @@ $( document ).ready(function() {
             $(".table-secondary")[i].remove();
         }
     }
+
+    //Obtener año y mes actual para usar en formulario de pago
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth() + 1;
+
 
 
     //Funcion para cargar desde el localStorage los elementos a mostrar en el carrito. Cada producto se
@@ -162,17 +167,48 @@ $( document ).ready(function() {
                     <td class="table table-secondary"><button class="btn btn-danger" id="botonPagar">Pagar</button></td>
                 </tr>`);
                 
-            
-            //Obtener año y mes actual para usar en formulario de pago
-            let currentYear = new Date().getFullYear();
-            let currentMonth = new Date().getMonth() + 1;
+            if (carrito.length != 0){
+                mostrarPagar();
+            }
+        }
+    }
 
-            //Agrega el div con la información para hacer el pago usando un form de Bootstrap
+    //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
+    //botón modificando la clase que tienen los productos y el total.
+    function desplegarCarrito(){
+        let visib = $(".oculto").length;
+        if ($(".oculto").length == 2) {
+            $("#carrito__contListado").attr("class", "visible");
+            $("#contListado__total").attr("class", "visible");
+        } else {
+            $("#carrito__contListado").attr("class", "oculto");
+            $("#contListado__total").attr("class", "oculto");
+        }
+    }
+
+    //Verificar si el carrito tiene algún producto dentro y desplegarlo dentro del
+    //contenedor. Si se encunetra vacío se mantiene oculto
+    function mostrarCarrito(){
+        carrito = JSON.parse(localStorage.getItem("carrito"))
+        if(carrito != null){
+            if (carrito.length != 0){
+                $("#carrito__contListado").attr("class", "visible");
+                $("#contListado__total").attr("class", "visible");
+            }
+        }
+    }
+
+
+    //Renderiza el form para pagar y activa el fadeToggle cuando se presiona el boton Pagar
+    function mostrarPagar(){
+
+        $("#botonPagar").click(function() {
+            //Agrega el contemedor form con la información para hacer el pago usando un form de Bootstrap
             $(".carrito__cont").append(
-                `<div id="formPago" style="display: none">
+                `<form id="formPago" style="display: none">
                     <div class="input-group mb-3">
-                        <span class="input-group-text has-validation" id="basic-addon1">Nro tarjeta de crédito</span>
-                        <input type="number" class="form-control" placeholder="#### #### #### ####" id="creditCardNr" aria-label="Nro tarjeta de crédito" required>
+                        <span class="input-group-text" id="basic-addon1">Nro tarjeta de crédito</span>
+                        <input type="number" class="form-control" placeholder="#### #### #### ####" id="creditCardNr" aria-label="Nro tarjeta de crédito">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" for="inputMes">Mes</span>
@@ -203,84 +239,71 @@ $( document ).ready(function() {
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Código de seguridad</span>
-                        <input type="password" id="creditCardCode" class="form-control" placeholder="###" aria-label="Código de seguridad" required>
+                        <input type="number" id="creditCardCode" class="form-control" placeholder="###" aria-label="Código de seguridad">
                     </div>
                     <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon">Titular</span>
-                    <input type="text" id="titular" class="form-control" placeholder="Nombre del titular" aria-label="Titular" required>
+                    <input type="text" id="titular" class="form-control" placeholder="Nombre del titular" aria-label="Titular">
                 </div>
                     <div>
-                        <button type="submit" value="submit" class="btn btn-danger" id="botonEnviar">Enviar</button>
+                        <button type="button" value="submit" class="btn btn-danger" id="botonEnviar">Enviar</button>
                     </div>
-                </div>`,
+                </form>`,
             );
 
-            //Activa el boton Pagar mostrando el div con animación faeToggle y cambia el valor html del botón a Ocultar
-            $("#botonPagar").click(function() {
-                $("#formPago").fadeToggle(1500, function(){
-                    if ($("#botonPagar").html() == "Pagar") {
-                        $("#botonPagar").html("Ocultar");
-                    } else {
-                        $("#botonPagar").html("Pagar");
+            //Agrega la animación de fadeIn y fadeOut cuando se presiona el boton pagar mostrando y ocultando el form
+            $("#formPago").fadeToggle(1500, function(){
+                if ($("#botonPagar").html() == "Pagar") {
+                    $("#botonPagar").html("Ocultar");
+                } else {
+                    $("#botonPagar").html("Pagar");
+                }
+            });
+
+            //Agrega la funcionalidad al boton Enviar para validar las entradas en los inputs y mostrar confirmación
+            $("#botonEnviar").click(function(){
+                if (carrito.length != 0){
+                    let ccNr = $("#creditCardNr").val();
+                    let ccCode = $("#creditCardCode").val();
+                    let ccTitular = $("#titular").val();
+                    let ccMes = $("#inputMes").val();
+                    let ccAnio = $("#inputAnio").val();
+                    //Verifica que el largo del número de tarjeta de crédito es de 16 dígitos
+                    if (ccNr.length != 16){
+                        mensajeError('Número de tarjeta de crédito inválido');
                     }
-                });
+                    //Verifica que el mes y año de vencimiento esten seleccionados y no son anteriores a mes y año actual
+                    else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes < currentMonth & ccAnio == currentYear)){
+                        mensajeError('Combinación de mes y año inválida'); 
+                    }
+                    //Verifica que el código de seguridad sea de 3 dígitos
+                    else if (ccCode.length != 3){
+                        mensajeError('Código de seguridad inválido'); 
+                    }
+                    //Verifica que el campo titular no esté vacío
+                    else if (ccTitular.length == 0){
+                        mensajeError('Titular de tarjeta vacío');
+                    }
+                    //Si los campos son váidos, oculta el form de pago, limpia los valores, vacía el array carrito y localStorage,
+                    //limpia la tabla que muestra los productos en el carrito, oculta el carrito y muestra una confirmación que el
+                    //pedido fue aceptado
+                    else{
+                        $("#formPago").fadeOut(1500);
+                        document.getElementById("formPago").reset();
+                        vaciarCarrito();
+                        limpiarCart();
+                        desplegarCarrito();
+                        mensajeExito('Orden creada correctamente');
+                    }
+                }
             });
             
-            //Validar entradas en el formulario de pago y prsentar el mensaje de error o confirmación
-            $("#botonEnviar").click(function(){
-                let ccNr = $("#creditCardNr").val();
-                let ccCode = $("#creditCardCode").val();
-                let ccTitular = $("#titular").val();
-                let ccMes = $("#inputMes").val();
-                let ccAnio = $("#inputAnio").val();
-                if (ccNr.length != 16){
-                    validarTarjeta('Número de tarjeta de crédito inválido');
-                }
-                else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes < currentMonth & ccAnio == currentYear)){
-                    validarTarjeta('Combinación de mes y año inválida'); 
-                }
-                else if (ccCode.length != 3){
-                    validarTarjeta('Código de seguridad inválido'); 
-                }
-                else if (ccTitular.length == 0){
-                    validarTarjeta('Titular de tarjeta vacío');
-                }
-                else{
-                    envioAceptado();
-                }
-            })
-        }
-    }
-
-
-    //Función para desplegar u ocultar el desplegable con los li del carrito cuando se hace click sobre el
-    //botón modificando la clase que tienen los productos y el total.
-    function desplegarCarrito(){
-        let visib = $(".oculto").length;
-        if ($(".oculto").length == 2) {
-            $("#carrito__contListado").attr("class", "visible");
-            $("#contListado__total").attr("class", "visible");
-        } else {
-            $("#carrito__contListado").attr("class", "oculto");
-            $("#contListado__total").attr("class", "oculto");
-        }
-    }
-
-    //Verificar si el carrito tiene algún producto dentro y desplegarlo dentro del
-    //contenedor. Si se encunetra vacío se mantiene oculto
-    function mostrarCarrito(){
-        carrito = JSON.parse(localStorage.getItem("carrito"))
-        if(carrito != null){
-            if (carrito.length != 0){
-                $("#carrito__contListado").attr("class", "visible");
-                $("#contListado__total").attr("class", "visible");
-            }
-        }
+        });
     }
 
 
     //Agregar confirmación que el producto fue agregado al carrito
-    function confirmarItemAgregado() {
+    function mensajeExito(mensaje) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -295,7 +318,7 @@ $( document ).ready(function() {
         
         Toast.fire({
             icon: 'success',
-            title: 'Producto agregado al carrito'
+            title: mensaje
         })
     }
 
@@ -303,7 +326,7 @@ $( document ).ready(function() {
     //Mostrar mensaje de error cuando el valor ingresado como tarjeta de credito es incorrecto,
     //la fecha es anterior a la fecha actual, el código de seguridad no tiene 3 dígitos o el
     //campo titular está vacío
-    function validarTarjeta(mensaje) {
+    function mensajeError(mensaje) {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -319,26 +342,6 @@ $( document ).ready(function() {
         Toast.fire({
             icon: 'error',
             title: mensaje
-        })
-    }
-
-    //Mostrar mensaje de confirmación cuando la tarjeta de crédito es aceptada
-    function envioAceptado() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        
-        Toast.fire({
-            icon: 'success',
-            title: 'Orden creada correctamente'
         })
     }
 
@@ -407,11 +410,13 @@ $( document ).ready(function() {
 
     //Carga inicial de los elementos el carrito.
     cargarCarrito();
+
     //Carga inicial del badge.
     crearBadge();
+
     //Desplegar carrito al inicio si no se encuentra vacío
     mostrarCarrito();
 
-    //Carga la información del clima desde la API RapidAPI en el contenedor #clima
+    //Carga la información del clima desde la API Open-Meteo en el contenedor #clima
     obtenerClima();
 });
