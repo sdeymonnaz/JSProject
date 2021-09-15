@@ -274,7 +274,7 @@ $( document ).ready(function() {
                         mensajeError('Número de tarjeta de crédito inválido');
                     }
                     //Verifica que el mes y año de vencimiento esten seleccionados y no son anteriores a mes y año actual
-                    else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes < currentMonth & ccAnio == currentYear)){
+                    else if ((ccMes == "Mes" | ccAnio == "Año") | (ccMes <= currentMonth & ccAnio == currentYear)){
                         mensajeError('Combinación de mes y año inválida'); 
                     }
                     //Verifica que el código de seguridad sea de 3 dígitos
