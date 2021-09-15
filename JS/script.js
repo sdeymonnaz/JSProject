@@ -156,7 +156,6 @@ $( document ).ready(function() {
                 })
             }
 
-
             //Crea la línea con el total agregando el botón Pagar
             $("#contListado__total").append(
                 `<tr class="table table-light">
