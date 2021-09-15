@@ -168,7 +168,6 @@ $( document ).ready(function() {
             if (carrito.length != 0){
                 mostrarPagar();
             }
-            return (`Su pedido por un total de $${totalImp.toFixed(2)} ha sido enviado y se encuentra en procesamiento. Lo contactaremos a la brevedad para coordinar la entrega`);
         }
     }
 
@@ -205,7 +204,6 @@ $( document ).ready(function() {
 
     //Renderiza el form para pagar y activa el fadeToggle cuando se presiona el boton Pagar
     function mostrarPagar(){
-
         $("#botonPagar").click(function() {
             //Agrega el contemedor form con la información para hacer el pago usando un form de Bootstrap
             $(".carrito__cont").append(
@@ -288,16 +286,21 @@ $( document ).ready(function() {
                     else if (ccTitular.length == 0){
                         mensajeError('Titular de tarjeta vacío');
                     }
+                    //Verifica que el valor ingresado en el campo Titular no contenga números mediante una expresión regular
+                    else if(ccTitular.match(/[0123456789]+/)){
+                        mensajeError('Titular de tarjeta contiene números');
+                    }
                     //Si los campos son váidos, oculta el form de pago, limpia los valores, vacía el array carrito y localStorage,
                     //limpia la tabla que muestra los productos en el carrito, oculta el carrito y muestra una confirmación que el
                     //pedido fue aceptado
                     else{
+                        let pedido = calcularPedido();
                         $("#formPago").fadeOut(1500);
                         document.getElementById("formPago").reset();
                         vaciarCarrito();
                         limpiarCart();
                         desplegarCarrito();
-                        confirmacionPedido(confirmado);
+                        confirmacionPedido(pedido);
                     }
                 }
             }); 
@@ -305,7 +308,22 @@ $( document ).ready(function() {
     }
 
 
-    //SweetAlert2 configuración de mixin
+    //Se calcula el total del pedido y la cantidad de productos solicitados para mostralo en la confirmación
+    function calcularPedido (){
+        let cantTotal = 0;
+        let importeTotal = 0;
+        carrito = JSON.parse(localStorage.getItem("carrito"))     
+        for (let producto of carrito){
+            let importe = parseFloat(producto.precio);
+            cantTotal = cantTotal + 1;
+            importeTotal = importeTotal + importe;
+        }
+        const pedido = [cantTotal, importeTotal.toFixed(2)]
+        return pedido;
+    }
+
+
+    //SweetAlert2 configuración de mixin para usarlo en mensajes de error y confirmación
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -336,10 +354,10 @@ $( document ).ready(function() {
         })
     }
 
-    function confirmacionPedido(confirmacion){
+    function confirmacionPedido(pedido){
         Swal.fire(
             'Pedido enviado',
-            confirmacion,
+            'Recibimos su pedido de '+ pedido[0] + ' producto(s) por un total de $' + pedido[1] + '. En breve lo contactaremos para coordinar la entrega. Muchas gracias.',
             'success'
         )
     }
@@ -409,7 +427,7 @@ $( document ).ready(function() {
     obtenerJsonProductos();
 
     //Carga inicial de los elementos el carrito.
-    let confirmado = cargarCarrito();
+    cargarCarrito();
 
     //Carga inicial del badge.
     crearBadge();
