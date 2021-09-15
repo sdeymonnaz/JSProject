@@ -105,11 +105,6 @@ $( document ).ready(function() {
         }
     }
 
-    //Obtener año y mes actual para usar en formulario de pago
-    let currentYear = new Date().getFullYear();
-    let currentMonth = new Date().getMonth() + 1;
-
-
 
     //Funcion para cargar desde el localStorage los elementos a mostrar en el carrito. Cada producto se
     //agrega en una fila de una tabla de Bootsrap y se calcula un total que se agrega al final de la tabla.
@@ -118,11 +113,11 @@ $( document ).ready(function() {
         if (carrito != null) {
             carrito = JSON.parse(localStorage.getItem("carrito"));
             let totalImp = 0;
-            //Crea una nueva lista de objetos "contador" a partir del carrito con valores únicos y cuenta
+            //Crea una nueva lista de objetos "contador" a partir del carrito con valores únicos en un set y cuenta
             //la cantidad de repeticiones.
             const contador = [...carrito.reduce( (mp, o) => {
-            if (!mp.has(o.id)) mp.set(o.id, { ...o, count: 0 });
-                mp.get(o.id).count++;
+            if (!mp.has(o.id)) mp.set(o.id, { ...o, cantidad: 0 });
+                mp.get(o.id).cantidad++;
                 return mp;
             }, new Map).values()];
             //Render de los encabezados de las columnas de la tabla carrito usando Bootstrap
@@ -135,21 +130,22 @@ $( document ).ready(function() {
                 </tr>`)
             //Render de cada objeto de la lista contador
             for (let elem of contador){
-                totalImp = totalImp + parseFloat(elem.precio * elem.count);
+                totalImp = totalImp + parseFloat(elem.precio * elem.cantidad);
                 $("#contListado__items").append(
                     `<tr class="table table-light">
                         <td class="table table-secondary" style="padding: 10px;">${elem.nombre}</td>
                         <td class="table table-secondary" style="padding: 10px;">$${elem.precio}</td>
-                        <td class="table table-secondary" style="width: 15px; padding: 10px; text-align: center">${elem.count}</td>
-                        <td class="table table-secondary" style="padding: 10px;">$${parseFloat(elem.precio * elem.count).toFixed(2)}</td>
+                        <td class="table table-secondary" style="width: 15px; padding: 10px; text-align: center">${elem.cantidad}</td>
+                        <td class="table table-secondary" style="padding: 10px;">$${parseFloat(elem.precio * elem.cantidad).toFixed(2)}</td>
                         <td class="table table-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-x-circle-fill"  id="quitar${elem.id}" style="background-color: #f5f5f5" viewBox="0 0 16 16">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                             </svg></i>
                         </td>
                     </tr>`);
+
                 //Funcionalidad de eliminar un producto individual del carrito
                 $(`#quitar${elem.id}`).click(function() {
-                    const elimProd = carrito.find(v => v.id == `${elem.id}`);
+                    const elimProd = carrito.slice().reverse().find(v => v.id == `${elem.id}`);
                     const elimIndex = carrito.indexOf(elimProd);
                     carrito.splice(elimIndex, 1);
                     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -159,6 +155,8 @@ $( document ).ready(function() {
                     mostrarCarrito();       
                 })
             }
+
+
             //Crea la línea con el total agregando el botón Pagar
             $("#contListado__total").append(
                 `<tr class="table table-light">
@@ -166,10 +164,11 @@ $( document ).ready(function() {
                     <td class="table table-secondary align-middle">${totalImp.toFixed(2)}</td>
                     <td class="table table-secondary"><button class="btn btn-danger" id="botonPagar">Pagar</button></td>
                 </tr>`);
-                
+                     
             if (carrito.length != 0){
                 mostrarPagar();
             }
+            return (`Su pedido por un total de $${totalImp.toFixed(2)} ha sido enviado y se encuentra en procesamiento. Lo contactaremos a la brevedad para coordinar la entrega`);
         }
     }
 
@@ -197,6 +196,11 @@ $( document ).ready(function() {
             }
         }
     }
+
+
+    //Obtener año y mes actual para usar en formulario de pago como validación
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth() + 1;
 
 
     //Renderiza el form para pagar y activa el fadeToggle cuando se presiona el boton Pagar
@@ -293,57 +297,53 @@ $( document ).ready(function() {
                         vaciarCarrito();
                         limpiarCart();
                         desplegarCarrito();
-                        mensajeExito('Orden creada correctamente');
+                        confirmacionPedido(confirmado);
                     }
                 }
-            });
-            
+            }); 
         });
     }
 
 
+    //SweetAlert2 configuración de mixin
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     //Agregar confirmación que el producto fue agregado al carrito
     function mensajeExito(mensaje) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        
         Toast.fire({
             icon: 'success',
             title: mensaje
         })
     }
 
-
     //Mostrar mensaje de error cuando el valor ingresado como tarjeta de credito es incorrecto,
     //la fecha es anterior a la fecha actual, el código de seguridad no tiene 3 dígitos o el
     //campo titular está vacío
     function mensajeError(mensaje) {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-        
         Toast.fire({
             icon: 'error',
             title: mensaje
         })
     }
+
+    function confirmacionPedido(confirmacion){
+        Swal.fire(
+            'Pedido enviado',
+            confirmacion,
+            'success'
+        )
+    }
+
 
     //Si el carrito no está vacío se muestra un badge con la catitidad de artículos en la lista carrito.
     function crearBadge(){
@@ -409,7 +409,7 @@ $( document ).ready(function() {
     obtenerJsonProductos();
 
     //Carga inicial de los elementos el carrito.
-    cargarCarrito();
+    let confirmado = cargarCarrito();
 
     //Carga inicial del badge.
     crearBadge();
